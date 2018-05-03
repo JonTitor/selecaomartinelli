@@ -1,0 +1,18 @@
+pkg: tmpl
+
+dest: "./app/fileb0x/tmpl/"
+
+fmt: true
+compression:
+  compress: true
+  method: "BestCompression"
+  keep: false
+
+clean: false
+unexporTed: false
+spread: false
+
+custom:
+  - files:
+    - "./app/templates/"
+    base: "app/templates/"

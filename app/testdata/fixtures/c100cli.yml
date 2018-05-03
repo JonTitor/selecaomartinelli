@@ -1,0 +1,19 @@
+- codcli: 1
+  nomcli: "Cliente 1"
+  numcnp: 1
+  desins: 1
+  nomcid: "Rio Negrinho"
+  unifed: SC
+  desend: "Rua XXX"
+  datcad: 20160303 00:00
+  datalt: 20160303 00:00
+
+- codcli: 2
+  nomcli: "Cliente 2"
+  numcnp: 2
+  desins: 2
+  nomcid: "Joinville"
+  unifed: SC
+  desend: "Rua YYY"
+  datcad: 20170911 00:00
+  datalt: 20170911 00:00

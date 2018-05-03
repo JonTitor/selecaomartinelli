@@ -1,0 +1,60 @@
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="/">
+    <img id="navbar-icone" src='/assets/imagens/favicon.ico?v={{index .MD5 "favicon.ico"}}' />
+    Help Desk
+  </a>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    {{if .Usuario}}
+      <ul class="navbar-nav mr-auto">
+        {{if .Usuario.EhPrestador}}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+              Cadastros
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="/clientes">Clientes</a>
+              <a class="dropdown-item" href="/usuarios">Usuários</a>
+              <a class="dropdown-item" href="/atividadetipos">Tipos de atividade</a>
+              <a class="dropdown-item" disabled href="/alertas">Alertas</a>
+            </div>
+          </li>
+        {{end}}
+        <li class="nav-item">
+          <a class="nav-link" href="/chamados">Chamados</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/racs">RACs</a>
+        </li>
+      </ul>
+    {{end}}
+
+    <ul class="navbar-nav ml-auto">
+      {{if .Usuario}}
+        <li class="navbar-text">
+          <i class="fa fa-user-circle" aria-hidden="true"></i>
+          Bem vindo, {{.Usuario.NomUsu}}
+        </li>
+      {{end}}
+
+      <form method="POST" action="/session/logout" name="logout">
+        {{$.CSRFInput}}
+      </form>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+          Ajuda
+        </a>
+        <div class="dropdown-menu dropdown-menu-right">
+          <a class="dropdown-item" href="https://sardo.com.br">Sardo</a>
+          {{if .Usuario}}
+            <a class="dropdown-item" href="/senha/">Trocar senha</a>
+            <a class="dropdown-item" href="#" onclick="logout.submit();">Fazer logout</a>
+          {{end}}
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>

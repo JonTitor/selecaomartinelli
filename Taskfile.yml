@@ -1,0 +1,135 @@
+default:
+  cmds:
+    - task: run
+
+
+run:
+  cmds:
+    - task: build
+    - ./seletivomartinelli{{exeExt}}
+
+build:
+  deps: [templates, assets]
+  cmds:
+    - go build -v -i
+      -ldflags="-s -w
+        -X martinelli/seletvomartinelli/app/build.GitCommit={{.LAST_GIT_COMMIT}}
+        -X martinelli/seletvomartinelli/app/build.BuildDate={{now | date "2006-01-02"}}
+        -X martinelli/seletvomartinelli/app/build.CommitDate={{.COMMIT_DATE}}"
+      -o seletivomartinelli{{exeExt}}
+      ./cmd/seletivomartinelli
+
+templates:
+  cmds:
+    - fileb0x .fileb0x_templates.yaml
+  sources:
+    - ./app/templates/**/*.html
+    - .fileb0x_templates.yaml
+    - Taskfile.yml
+    - Taskvars.yml
+  generates:
+    - app/fileb0x/tmpl/ab0x.go
+  method: checksum
+
+assets:
+  deps: [css, js]
+  cmds:
+    - fileb0x .fileb0x_assets.yaml
+  sources:
+    - ./app/public/**/*
+    - .fileb0x_assets.yaml
+    - Taskfile.yml
+    - Taskvars.yml
+  generates:
+    - app/fileb0x/assets/ab0x.go
+  method: checksum
+
+js:
+  cmds:
+    - echo "Compilando JS"
+    - minify -o app/public/vendor.js {{.JS_VENDOR_SRC}}
+    - minify -o app/public/app.js {{.JS_SRC}}
+  sources:
+    - ./app/assets/js/**/*.js
+    - Taskfile.yml
+    - Taskvars.yml
+  generates:
+    - app/public/vendor.js
+    - app/public/app.js
+  silent: true
+  method: checksum
+
+css:
+  cmds:
+    - echo "Compilando CSS"
+    - minify -o app/public/vendor.css {{.CSS_VENDOR_SRC}}
+    - minify -o app/public/app.css {{.CSS_SRC}}
+  sources:
+    - ./app/assets/css/**/*.css
+    - Taskfile.yml
+    - Taskvars.yml
+  generates:
+    - app/public/vendor.css
+    - app/public/app.css
+  silent: true
+  method: checksum
+
+upx:
+  cmds:
+    - upx -9 ./seletivomartinelli{{exeExt}}
+
+test:
+  deps: [templates, assets]
+  cmds:
+    - go test ./app/modulos/util
+    - go test ./app/router
+    - go test ./app/modelos
+
+jsfmt:
+  cmds:
+    - prettier --write "app/assets/js/vue/*.js"
+    - prettier --write "app/assets/js/*.js"
+    - prettier --write "app/assets/css/*.css"
+
+htmlfmt:
+  cmds:
+    - html-beautify
+        --replace
+        --indent-size=2
+        --unformatted=""
+        --max-preserve-newlines=1
+        --end-with-newline
+        --indent-handlebars
+        app/templates/**/*.html
+
+clean:
+  cmds:
+    - rm -rf dist/
+    - rm -f ./seletivomartinelli{{exeExt}}
+
+release:
+  cmds:
+    - mkdir -p dist/win
+    - mkdir -p dist/lin
+    - task: build
+    - task: upx
+    - cp "seletivomartinelli.exe" "dist/win/seletivomartinelli.exe"
+    - makensis /V2 .nsis.nsi
+    - mv "SeletivoMartinelli-Setup.exe" "dist/SeletivoMartinelli-Setup.exe"
+
+dl-deps:
+  cmds:
+    - go get -u -v github.com/tdewolff/minify/cmd/minify
+    - go get -u -v github.com/UnnoTed/fileb0x
+    - go get -u -v github.com/go-task/task/cmd/task
+    - go get -u -v github.com/golang/dep/cmd/dep
+
+dep:
+  cmds:
+    - dep ensure
+    - dep ensure -update
+    - dep prune
+
+install:
+  cmds:
+    - go install -v ./...

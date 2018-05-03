@@ -1,0 +1,47 @@
+{{template "header" .}}
+
+<section class="row justify-content-center">
+  <div class="col-6">
+    <h2 class="page-header">Tipos de Atividade</h2>
+
+    <p>
+      <a class="btn btn-success" href="/atividadetipos/novo">
+        Novo Tipo de Atividade
+      </a>
+    </p>
+
+    <table class="table table-bordered table-striped table-condensed table-sm table-responsive">
+      <thead>
+        <tr>
+          <th>Descrição</th>
+          <th>Medição</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{range $tipo := .AtividadeTipos}}
+          <tr>
+            <td>{{$tipo.DesAtt}}</td>
+            <td>{{$tipo.DsTipoMedicao}}</td>
+            <td class="is-center">
+              <form method="POST" action="/atividadetipos/deletar/{{$tipo.CodAtt}}" data-confirm="Deseja deletar este tipo de atividade?">
+                {{$.CSRFInput}}
+                <button class="btn btn-danger btn-xs">
+                  Deletar
+                </button>
+              </form>
+            </td>
+            <td class="is-center">
+              <a class="btn btn-primary btn-xs" href="/atividadetipos/editar/{{$tipo.CodAtt}}">
+                Editar
+              </a>
+            </td>
+          </tr>
+        {{end}}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+{{template "footer" .}}

@@ -1,0 +1,136 @@
+{{template "header" .}}
+
+<section id="rac-form" codcha="{{.chamado.CodCha}}" class="row justify-content-center">
+  <div class="col-8">
+    <h2 class="page-header">Gerar RAC</h2>
+
+    <form method="POST" action="/racs/save?codcha={{.chamado.CodCha}}">
+      <div class="form-group row">
+        <label class="form-control-label col-2 is-right">
+          Título:
+        </label>
+
+        <div class="col-10">
+          <input class="form-control" type="text" required name="nomtit" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="form-control-label col-2 is-right">
+          Descrição:
+        </label>
+
+        <div class="col-10">
+          <textarea class="form-control" required name="desrac" rows="3"></textarea>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="form-control-label col-2 is-right">
+          Situação:
+        </label>
+
+        <div class="col-3">
+          <select class="form-control" name="sitrac">
+            <option value="N" selected>Não Aprovado</option>
+            <option value="A">Aprovado</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row justify-content-end">
+        <div class="form-check col-10">
+          <label class="form-check-label">
+            <input class="form-check-input" name="ehracfinal" type="checkbox" value="S"> É RAC final?
+          </label>
+        </div>
+      </div>
+
+      <hr>
+
+      <div>
+        <h2>Atividades</h2>
+      </div>
+
+      <div class="card-block p-0 table-responsive">
+        <table class="table table-bordered table-striped table-condensed table-sm ">
+          <thead class="">
+            <tr>
+              <th>Incluir?</th>
+              <th>Atividade</th>
+              <th>Usuário</th>
+              <th>Horas</th>
+              <th>Quantidade</th>
+              <th>Valor</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr v-if="loading">
+              <td colspan="8" class="is-center">Carregando...</td>
+            </tr>
+            <tr v-if="!loading && atividades.length === 0">
+              <td colspan="8" class="is-center">Não foram encontrados registros...</td>
+            </tr>
+
+            <tr v-if="!loading" v-for="atividade in atividades" v-bind:class={ExisteRac:existe_rac(atividade.CodAtv)} class="trhref" style="white-space: nowrap;cursor:pointer;">
+              <td>
+                <label class="custom-control custom-checkbox">
+
+                  <div v-if="atividade.AtividadeHoras.length != 0">
+                    <input type="checkbox" name="atividades" v-on:click="checked[atividade.CodAtv] = !checked[atividade.CodAtv]" v-on:change="calcula_hora_marcada" :value="{CodAtv:atividade.CodAtv,Hora:calcula_hora(atividade.AtividadeHoras)}" v-model="checkbox" class="custom-control-input">
+                    <div v-if="checked[atividade.CodAtv]" type="hidden">
+                      <input name="codatv" type="hidden" :value="atividade.CodAtv">
+                    </div>
+                    <span class="custom-control-indicator"></span>
+                  </div>
+
+                  <div v-if="atividade.AtividadeQuantidades.length != 0">
+                    <input type="checkbox" v-on:click="checked[atividade.CodAtv] = !checked[atividade.CodAtv]" name="atividades" v-on:change="calcula_quantidade_marcada" :value="{CodAtv:atividade.CodAtv,QtdAtv:calcula_quantidade(atividade.AtividadeQuantidades)}" v-model="quantidade" class="custom-control-input">
+                    <div v-if="checked[atividade.CodAtv]" type="hidden">
+                      <input name="codatv" type="hidden" :value="atividade.CodAtv">
+                    </div>
+                    <span class="custom-control-indicator"></span>
+                  </div>
+
+                  <div v-if="atividade.AtividadeQuantidades.length == 0 && atividade.AtividadeHoras.length == 0 ">
+                    <input type="checkbox" v-on:click="checked[atividade.CodAtv] = !checked[atividade.CodAtv]" name="atividades" v-on:change="calcula_valor_marcado" :value="{CodAtv:atividade.CodAtv,VlrAtv:atividade.VlrAtv}" v-model="valor" class="custom-control-input">
+                    <div v-if="checked[atividade.CodAtv]" type="hidden">
+                      <input name="codatv" type="hidden" :value="atividade.CodAtv">
+                    </div>
+                    <span class="custom-control-indicator"></span>
+                  </div>
+                </label>
+              </td>
+
+              <td>${ atividade.DesAtv }</td>
+              <td>${ atividade.Usuario.NomUsu }</td>
+              <td>${ formataHoraDeDecimal(calcula_hora(atividade.AtividadeHoras)) }</td>
+              <td>${ calcula_quantidade(atividade.AtividadeQuantidades) }</td>
+              <td>${ atividade.VlrAtv}</td>
+            </tr>
+
+            <tr>
+              <th colspan="3">Total de Horas/Quantidade/Valores de todas as atividades:</th>
+              <th>${ formataHoraDeDecimal(calcula_hora_total()) }</th>
+              <th>${ calcula_quantidade_total() }</th>
+              <th>${ calcula_valor_total() }</th>
+            </tr>
+
+            <tr>
+              <th colspan="3">Total de Horas/Quantidade/Valores das atividades marcadas:</th>
+              <th>${ formataHoraDeDecimal(horatotalmarcada) }</th>
+              <th>${ quantidademarcada }</th>
+              <th>${ valormarcado }</th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      {{$.CSRFInput}}
+      <input class="btn btn-primary" type="submit" value="Criar RAC" style="float: right;" />
+    </form>
+  </div>
+</section>
+
+{{template "footer" .}}

@@ -1,0 +1,86 @@
+<div class="row form-horizontal justify-content-center margin-b-sm">
+  <div class="col-md-3 control-label">
+    <label for="smtp.host">Status:</label>
+  </div>
+
+  <div class="col-5">
+    <select class="form-control selectpicker" id="smtp.ativo" name="smtp.ativo">
+      <option {{if .Config.SMTP.Ativo}} selected {{end}} value="A">Ativado</option>
+      <option {{if not .Config.SMTP.Ativo}} selected {{end}} value="">Desativado</option>
+    </select>
+  </div>
+</div>
+
+<div class="row form-horizontal justify-content-center margin-b-sm">
+  <div class="col-md-3 control-label">
+    <label for="smtp.porta">Porta:</label>
+  </div>
+
+  <div class="col-5">
+    <input class="form-control" id="smtp.portaSMTP" name="smtp.portaSMTP" value="{{.Config.SMTP.PortaSMTP}}" />
+  </div>
+</div>
+
+<div class="row form-horizontal justify-content-center margin-b-sm">
+  <div class="col-md-3 control-label">
+    <label for="smtp.host">Host:</label>
+  </div>
+
+  <div class="col-5">
+    <input class="form-control" id="smtp.host" name="smtp.host" value="{{.Config.SMTP.Host}}" />
+  </div>
+</div>
+
+<div class="row form-horizontal justify-content-center margin-b-sm">
+  <div class="col-md-3 control-label">
+    <label for="smtp.email">Email:</label>
+  </div>
+
+  <div class="col-5">
+    <input class="form-control" id="smtp.email" name="smtp.email" value="{{.Config.SMTP.Email}}" />
+  </div>
+</div>
+
+<div class="row form-horizontal justify-content-center margin-b-sm">
+  <div class="col-md-3 control-label">
+    <label for="smtp.senha">Senha:</label>
+  </div>
+
+  <div class="col-5">
+    <input type="password" class="form-control" id="smtp.senha" name="smtp.senha" value="{{.Config.SMTP.Senha}}" />
+  </div>
+</div>
+
+<div class="row form-horizontal justify-content-center margin-b-sm">
+  <div class="col-md-3 control-label">
+    <label for="smtp.senha">SSL:</label>
+  </div>
+
+  <div class="col-5">
+    <select class="form-control selectpicker" id="smtp.ssl" name="smtp.ssl">
+      <option {{if .Config.SMTP.SSL}} selected {{end}} value="A">Ativado</option>
+      <option {{if not .Config.SMTP.SSL}} selected {{end}} value="">Desativado</option>
+    </select>
+  </div>
+</div>
+
+<hr>
+
+<div class="row form-horizontal justify-content-center margin-b-sm">
+  <div class="col-md-3 control-label">
+    <label for="smtp.senha">
+      E-mail de teste<br>
+      Para:
+    </label>
+  </div>
+
+  <div class="col-5">
+    <input type="text" class="form-control" id="smtp.emailteste" name="smtp.emailteste" />
+  </div>
+</div>
+
+<div class="row form-horizontal justify-content-center margin-b-sm">
+  <div class="col-2">
+    <button class="btn btn-info" @click="enviarEmailTeste" data-token="{{.Config.API.Token}}">Enviar e-mail de teste</button>
+  </div>
+</div>

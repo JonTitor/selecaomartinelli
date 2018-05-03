@@ -1,0 +1,70 @@
+{{template "header" .}}
+
+<section id="tela-admin" class="row justify-content-center">
+  <form method="POST" class="form-horizontal col-6" enctype="multipart/form-data" action="/admin/save">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="page-header">Painel de configuração</h4>
+      </div>
+
+      <div class="card-body">
+        <h4 class="card-title">
+          <span class="icon fa fa-database"></span>
+          <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseBanco" aria-expanded="true" aria-controls="collapseBanco">
+            Banco
+          </a>
+        </h4>
+      </div>
+      <div id="collapseBanco" class="card-body collapse" role="tabpanel" aria-labelledby="headingBanco">
+        {{template "admin-index-banco.html" .}}
+      </div>
+
+      <div class="card-body">
+        <h4 class="card-title">
+          <span class="icon fa fa-database"></span>
+          <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSistema" aria-expanded="true" aria-controls="collapseSistema">
+            Sistema
+          </a>
+        </h4>
+      </div>
+      <div id="collapseSistema" class="card-body collapse" role="tabpanel" aria-labelledby="headingSistema">
+        {{template "admin-index-sistema.html" .}}
+      </div>
+
+      <div class="card-body">
+        <h4 class="card-title">
+          <span class="icon fa fa-database"></span>
+          <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseHTTP" aria-expanded="true" aria-controls="collapseHTTP">
+            HTTP
+          </a>
+        </h4>
+      </div>
+      <div id="collapseHTTP" class="card-body collapse" role="tabpanel" aria-labelledby="headingHTTP">
+        {{template "admin-index-http.html" .}}
+      </div>
+
+      <div class="card-body">
+        <h4 class="card-title">
+          <span class="icon fa fa-database"></span>
+          <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSMTP" aria-expanded="true" aria-controls="collapseSMTP">
+            SMTP
+          </a>
+        </h4>
+      </div>
+      <div id="collapseSMTP" class="card-body collapse" role="tabpanel" aria-labelledby="headingSMTP">
+        {{template "admin-index-smtp.html" .}}
+      </div>
+
+      <div class="card-body">
+        <button class="btn btn-success">
+          {{$.CSRFInput}}
+
+          <i class="fa fa-disk"></i>
+          Salvar
+        </button>
+      </div>
+    </div>
+  </form>
+</section>
+
+{{template "footer" .}}

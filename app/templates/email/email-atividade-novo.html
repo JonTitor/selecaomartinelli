@@ -1,0 +1,97 @@
+<style>
+  .cabecalho-colorido th {
+    background-color: #ccffcc;
+  }
+
+  .linha-atividade {
+    background-color: #e6fde6!important;
+  }
+
+  .cabecalho-secundario {
+    background-color: #e6fde6!important;
+  }
+
+  .is-center {
+    text-align: center;
+  }
+
+  .is-right {
+    text-align: right;
+  }
+
+</style>
+
+<div>
+  <table class="cabecalho-colorido" style="font-family: 'Calibri', sans-serif; font-size: 11pt; border-collapse: collapse; width: 100%" border="1" cellpadding="3">
+    <thead>
+      <tr>
+        <th colspan="2">
+          {{if .EhEdit}} Chamado {{.Chamado.CodCha}} alterado por: {{.Chamado.Usuario.NomUsu}}
+          {{else}}Chamado {{.Chamado.CodCha}} criado por: {{.Chamado.Usuario.NomUsu}} {{end}}
+        </th>
+      </tr>
+      </head>
+      <tbody>
+        <tr>
+          <td style="width: 40%">
+            <strong>Cliente: </strong>{{.Chamado.Cliente.NomCli}}
+            <br>
+            <strong>Abertura: </strong>{{.Chamado.DatCad.Format "02/01/2006 15:04"}}
+            <br>
+            <strong>Prazo de entrega: </strong>{{.Chamado.DatEtg.Time.Format "02/01/2006 15:04"}}
+            <br>
+            <strong>Estimativa prestador: </strong>{{.Chamado.DatEst.Time.Format "02/01/2006 15:04"}}
+            <br>
+            <strong>Situação: </strong>{{if eq .Chamado.SitCha "A"}}Aberto{{end}} {{if eq .Chamado.SitCha "S"}}Suspenso{{end}} {{if eq .Chamado.SitCha "P"}}Pendente{{end}} {{if eq .Chamado.SitCha "F"}}Fechado{{end}}
+            <br>
+          </td>
+          <td style="width: 60%">
+            <strong>Descrição: </strong>{{.Chamado.DesCha}}
+            <br>
+          </td>
+        </tr>
+      </tbody>
+  </table>
+
+  <h2>Atividades</h2>
+
+  <table class="cabecalho-colorido" style="font-family: 'Calibri', sans-serif; font-size: 11pt; border-collapse: collapse; width: 100%" border="1" cellpadding="3">
+    <thead>
+      <tr>
+        <th>Tipo de Atividade</th>
+        <th>Atividade</th>
+        <th>Valor</th>
+        <th>Usuário</th>
+      </tr>
+    </thead>
+
+    {{range $atividade := .Atividades}} {{if eq $atividade.AtividadeTipo.TipMed "T"}}
+    <tbody>
+      <tr class="linha-atividade">
+        <td>{{$atividade.AtividadeTipo.DesAtt}}</td>
+        <td>{{$atividade.DesAtv}}</td>
+        <td>{{$atividade.VlrAtv}}</td>
+        <td>{{$atividade.Usuario.NomUsu}}</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td colspan="2">
+          <table class="cabecalho-colorido" style="font-family: 'Calibri', sans-serif; font-size: 11pt; border-collapse: collapse; width: 100%" border="1" cellpadding="3">
+            <thead>
+              <tr>
+                {{range $atividadeh := $atividade.AtividadeHoras }}
+                <th>Início/Fim/Hora</th>
+                <td>{{$atividadeh.DatIni.Format "02/01/2006 15:04"}}</td>
+                <td>{{$atividadeh.DatFim.Format "02/01/2006 15:04"}}</td>
+                <td>{{printf "%.2f" (diffHoras $atividadeh.DatIni $atividadeh.DatFim)}}</td>
+                {{end}}
+              </tr>
+            </thead>
+          </table>
+        </td>
+        <td></td>
+      </tr>
+    </tbody>
+    {{end}} {{end}}
+  </table>
+</div>

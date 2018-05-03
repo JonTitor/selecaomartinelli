@@ -1,0 +1,42 @@
+{{template "header" .}}
+
+<section class="row justify-content-center">
+  <div class="col-10">
+    <h1 class="page-header">Alertas</h1>
+
+    <p>
+      <a class="btn btn btn-success" href="/alertas/novo">
+        Novo Alerta
+      </a>
+    </p>
+
+    <table class="table table-bordered table-striped table-condensed table-sm table-responsive">
+      <thead>
+        <tr>
+          <th>Cliente</th>
+          <th>Descrição</th>
+          <th>Situação</th>
+          <th>Criação</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{range $alerta := .Alertas}}
+          <tr>
+            <td>{{$alerta.Cliente.NomCli}}</td>
+            <td>{{$alerta.DesAle}}</td>
+            <td>{{$alerta.DsSituacao}}</td>
+            <td>{{$alerta.DatCad.Format "02/01/2006"}}</td>
+            <td class="center">
+              <a class="btn btn-primary btn-xs" href="/alertas/editar/{{$alerta.CodAle}}">
+                Editar
+              </a>
+            </td>
+          </tr>
+        {{end}}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+{{template "footer" .}}

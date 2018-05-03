@@ -1,0 +1,51 @@
+<div class="row justify-content-between is-center margin-b-sm">
+  <div class="col">
+    <button :disabled="paginacomentario <= 1" class="btn btn-primary" @click.prevent="AnteriorPaginaComentario">
+      Anterior
+    </button>
+  </div>
+
+  <div class="col">
+    Página ${ paginacomentario } de ${ totalcomentario }
+  </div>
+
+  <div class="col">
+    <select @change="buscarComentarios" v-model='numcontcomentario' class="form-control">
+      <option value="1">1</option>
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="25">25</option>
+      <option value="50">50</option>
+      <option value="100">100</option>
+    </select>
+  </div>
+
+  <div class="col">
+    <button :disabled="paginacomentario >= totalcomentario" class="btn btn-primary" @click.prevent="ProximaPaginaComentario">
+      Próximo
+    </button>
+  </div>
+</div>
+
+<div class="margin-b-sm">
+  <div v-for="comentario in comentarios" class="card">
+    <div class="card-header">
+      ${ comentario.Usuario.NomUsu } em ${ formata_data(comentario.DatAlt) }
+    </div>
+
+    <div class="card-body">
+      <vue-markdown :source="comentario.DesCom"></vue-markdown>
+    </div>
+  </div>
+</div>
+
+<form method="POST" action="/comentarios/save?codcha={{.chamado.CodCha}}">
+  {{$.CSRFInput}}
+
+  <textarea placeholder="Escreva seu comentario aqui..." class="form-control margin-b-sm" name="descom" rows="10" required></textarea>
+
+  <button id="btn-comentario-enviar" type="submit" class="btn btn-success">
+    <i class="fa fa-share"></i>
+    Enviar
+  </button>
+</form>

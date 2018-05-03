@@ -1,0 +1,35 @@
+<div class="row form-horizontal margin-bottom justify-content-center margin-b-sm">
+  <div class="col-md-3 control-label">
+    <label for="http.porta">Porta:</label>
+  </div>
+
+  <div class="col-md-4">
+    <input class="form-control" id="http.portaHTTP" name="http.portaHTTP" value="{{.Config.HTTP.PortaHTTP}}" />
+  </div>
+</div>
+
+<div class="row form-horizontal margin-bottom justify-content-center margin-b-sm">
+  <div class="col-md-3 control-label">
+    <label for="http.cacheheader">Cache de assets:</label>
+  </div>
+
+  <div class="col-md-4">
+    <select class="form-control selectpicker" id="http.cacheheader" name="http.cacheheader">
+      <option value="1" {{if .Config.HTTP.CacheHeader}} selected {{end}}>Ligado</option>
+      <option value="0" {{if not .Config.HTTP.CacheHeader}} selected {{end}}>Desligado</option>
+    </select>
+  </div>
+</div>
+
+<div class="row form-horizontal margin-bottom justify-content-center margin-b-sm">
+  <div class="col-md-3 control-label">
+    <label for="http.gzip">GZIP:</label>
+  </div>
+
+  <div class="col-md-4">
+    <select class="form-control selectpicker" id="http.gzip" name="http.gzip">
+      <option value="1" {{if .Config.HTTP.Gzip}} selected {{end}}>Ligado</option>
+      <option value="0" {{if not .Config.HTTP.Gzip}} selected {{end}}>Desligado</option>
+    </select>
+  </div>
+</div>

@@ -1,0 +1,149 @@
+<div class="row justify-content-between is-center margin-b-sm">
+  <div class="col">
+    <button :disabled="pagina <= 1" class="btn btn-primary" @click.prevent="AnteriorPagina">
+      Anterior
+    </button>
+  </div>
+
+  <div class="col">
+    Página ${ pagina } de ${ total }
+  </div>
+
+  <div class="col">
+    <select @change="buscarAtividades" v-model="numcont" class="form-control">
+      <option value="1">1</option>
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="25">25</option>
+      <option value="50">50</option>
+      <option value="100">100</option>
+    </select>
+  </div>
+
+  <div class="col">
+    <button :disabled="pagina >= total" class="btn btn-primary" @click.prevent="ProximaPagina">
+      Próximo
+    </button>
+  </div>
+</div>
+
+<div class="form-inline row margin-b-sm justify-content-center">
+  <strong class="col2">Filtros:</strong>
+
+  <label class="col-2">Colaborador:</label>
+  <select @change="buscarAtividades" v-model='codusu' class="form-control col-2">
+    <option></option>
+    {{range $usuario := .usuarios}}
+      <option value="{{$usuario.CodUsu}}">{{$usuario.NomUsu}}</option>
+    {{end}}
+  </select>
+
+  <label class="col-2">Tipo Atividade:</label>
+  <select @change="buscarAtividades" v-model='codattfiltro' class="form-control col-2">
+    <option></option>
+    {{range $atvtip := .atvtipos}}
+      <option value="{{$atvtip.CodAtt}}">{{$atvtip.DesAtt}}</option>
+    {{end}}
+  </select>
+</div>
+
+<table class="table table-bordered table-striped table-condensed table-sm table-responsive">
+  <thead>
+    <tr>
+      <th>Tipo de atividade</th>
+      <th>Atividade</th>
+      <th>Datas</th>
+      <th>Quantidades</th>
+      <th>Valor</th>
+      <th>Usuário</th>
+      {{if .Usuario.EhPrestador}}
+        <th></th>
+        <th></th>
+      {{end}}
+    </tr>
+  </thead>
+  <tbody v-for="atividade in atividades">
+    <tr v-if="loading">
+      <td colspan="8" class="is-center">Carregando...</td>
+    </tr>
+
+    <tr v-if="!loading && atividades.length === 0">
+      <td colspan="8" class="is-center">Não foram encontrados registros...</td>
+    </tr>
+
+    <tr v-if="!loading">
+      <td @click="Href(atividade.CodAtv)">${ atividade.AtividadeTipo.DesAtt }</td>
+      <td><vue-markdown :source="atividade.DesAtv"></vue-markdown></td>
+      <td class="is-center">
+        <div v-if="atividade.AtividadeTipo.TipMed == 'T'">
+          <button class="btn btn-secondary btn-xs" @click.prevent="expandir(atividade.CodAtv)">
+            <i :class="tabelasdata[atividade.CodAtv] ? 'fa fa-angle-double-up' : 'fa fa-angle-double-down'"></i>
+          </button>
+        </div>
+      </td>
+      <td class="is-center">
+        <div v-if="atividade.AtividadeTipo.TipMed == 'K'">
+          <button class="btn btn-secondary btn-xs" @click.prevent="expandirquilometragem(atividade.CodAtv)">
+            <i :class="tabelasquilometragem[atividade.CodAtv] ? 'fa fa-angle-double-up' :'fa fa-angle-double-down'"></i>
+          </button>
+        </div>
+      </td>
+      <td>
+        <div v-if="atividade.AtividadeTipo.TipMed == 'V'"><b>R$ </b>${ atividade.VlrAtv.toFixed(2) }</div>
+      </td>
+      <td>${ atividade.Usuario.NomUsu }</td>
+      {{if .Usuario.EhPrestador}}
+        <td class="is-center">
+          <form method="GET" :action="'/atividades/editar/' + atividade.CodAtv">
+            <input class="btn btn-sm btn-primary" type="submit" value="Editar" />
+          </form>
+        </td>
+        <td class="is-center">
+          <click-confirm :messages="{title: 'Deseja realmente deletar a atividade?', yes: 'Sim', no: 'Não'}">
+            <form method="post" :action="'/atividades/deletar/'+ atividade.CodAtv + '?codcha={{.chamado.CodCha}}#atividade'">
+              {{$.CSRFInput}}
+              <input class="btn btn-sm btn-danger" type="submit" value="Excluir" />
+            </form>
+          </click-confirm>
+        </td>
+      {{end}}
+    </tr>
+
+    <tr v-show="tabelasdata[atividade.CodAtv]">
+      <td style="visibility: hidden; border: 0px;"></td>
+      <td colspan="6">
+        {{template "atividade-index-tabela-hora.html" .}}
+      </td>
+    </tr>
+
+    <tr v-show="tabelasquilometragem[atividade.CodAtv]">
+      <td style="visibility: hidden; border: 0px;"></td>
+      <td colspan="6">
+        {{template "atividade-index-tabela-quantidade.html" .}}
+      </td>
+    </tr>
+
+  </tbody>
+  <tfoot>
+    <th style="visibility: hidden; border: 0px;"></th>
+    <th>TOTAL:</th>
+    <th>${ formataHoraDeDecimal(atividadeshoras) }H</b></th>
+    <th>${ atividadesquantidade }</th>
+    <th>R$ ${ atividadevalor.toFixed(2) }</th>
+  </tfoot>
+</table>
+
+<hr>
+
+{{if .Usuario.EhPrestador}}
+  <div class="card">
+    <div class="card-header">
+      <strong>Nova Atividade</strong>
+    </div>
+    <div class="card-block">
+      <form action="/atividades/save?codcha={{.chamado.CodCha}}" method="POST">
+        {{template "atividade-form.html" .}}
+      </form>
+    </div>
+  </div>
+{{end}}

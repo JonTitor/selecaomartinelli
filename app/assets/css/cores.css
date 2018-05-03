@@ -1,0 +1,59 @@
+th {
+  float: center;
+  background-color: #c0392b;
+  color: #ecf0f1;
+}
+nav{
+  background-color: #c0392b;
+}
+nav a {
+color: #ecf0f1;
+}
+nav a:hover{
+  color: black;
+}
+nav a .nav-item:hover{
+color: black;
+}
+nav a .navbar-brand{
+  color: #ecf0f1 !important;
+}
+nav .navbar-brand {
+    color: white!important;
+}
+
+.card-header{
+  background:	#c0392b !important;
+  color: white;
+}
+.nav-item-movimentos a{
+  color: white;
+}
+.nav-item-movimentos:hover{
+  background: white;
+  color: black
+}
+
+
+.tags{
+  margin-right:2px;
+  color:#DCDCDC;
+}
+.ExisteRac td{
+  background-color: #ff8080;
+  border-color: #ff8080;;
+}
+.table {
+  border: 0.5px solid #696969
+}
+.table-bordered > thead > tr > th,
+.table-bordered > tbody > tr > th,
+.table-bordered > tfoot > tr > th,
+.table-bordered > thead > tr > td,
+.table-bordered > tbody > tr > td,
+.table-bordered > tfoot > tr > td {
+   border: 0.5px solid #696969;
+}
+li {
+ list-style-type: none;
+}

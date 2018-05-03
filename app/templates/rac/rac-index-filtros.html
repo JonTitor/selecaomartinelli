@@ -1,0 +1,44 @@
+<div class="row margin-b-sm is-center">
+  <div class="col">
+    <a class="btn btn-primary {{if eq .Form.Pagina 1}}disabled{{end}}"
+      href="?p={{sub .Form.Pagina 1}}&codcli={{.Form.CodCli}}&sitrac={{.Form.SitRac}}">
+      Anterior
+    </a>
+  </div>
+
+  <div class="col">
+    Página {{.Form.Pagina}} de {{.UltimaPagina}}
+  </div>
+
+  <div class="col">
+    <a class="btn btn-primary {{if eq .Form.Pagina .UltimaPagina}}disabled{{end}}"
+      href="?p={{add .Form.Pagina 1}}&codcli={{.Form.CodCli}}&sitrac={{.Form.SitRac}}">
+      Próximo
+    </a>
+  </div>
+</div>
+
+<form class="row margin-b-sm">
+  <label class="col-1 is-right">Cliente:</label>
+  <select class="form-control col-2" name="codcli">
+    <option value="">TODOS</option>
+    {{range $cliente := .Clientes}}
+      <option value="{{$cliente.CodCli}}" {{if eq $cliente.CodCli $.Form.CodCli}}selected{{end}}>
+        {{$cliente.NomCli}}
+      </option>
+    {{end}}
+  </select>
+
+  <label class="col-1 is-right">Situação:</label>
+  <select class="form-control col-2" name="sitrac">
+    <option value="1">TODOS</option>
+    <option value="A" {{if eq .Form.SitRac "A"}}selected{{end}}>Aprovado</option>
+    <option value="N" {{if eq .Form.SitRac "N"}}selected{{end}}>Não Aprovado</option>
+  </select>
+
+  <div class="col-1">
+    <button class="btn btn-secondaty">
+      Buscar
+    </button>
+  </div>
+</form>

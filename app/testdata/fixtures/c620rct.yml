@@ -1,0 +1,32 @@
+- codrct: 1
+  codrac: 1
+  codusu: 1
+  codatt: 1
+  codatv: 1
+  desatv: teste
+  valatv: 2
+  tematv: 60
+  datcad: '2016-03-03 00:00'
+  datalt: '2016-03-03 00:00'
+
+- codrct: 2
+  codrac: 1
+  codusu: 1
+  codatt: 2
+  codatv: 1
+  desatv: teste
+  valatv: 2
+  tematv: 0
+  datcad: '2016-03-03 00:00'
+  datalt: '2016-03-03 00:00'
+
+- codrct: 3
+  codrac: 1
+  codusu: 1
+  codatt: 3
+  codatv: 1
+  desatv: teste
+  valatv: 30
+  tematv: 0
+  datcad: '2016-03-03 00:00'
+  datalt: '2016-03-03 00:00'

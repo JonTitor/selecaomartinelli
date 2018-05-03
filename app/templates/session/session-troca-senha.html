@@ -1,0 +1,44 @@
+{{template "header" .}}
+
+<div class="row justify-content-center">
+  <div class="col-6">
+    <h1 class="page-header">Troca de senha</h1>
+
+    <form method="POST" action="/senha/">
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Senha atual</label>
+        <div class="col">
+          <input type="password" name="senha_atual" class="form-control" required />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Nova senha</label>
+        <div class="col">
+          <input type="password" name="senha_nova" class="form-control" required minlength="6" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Repita a nova senha</label>
+        <div class="col">
+          <input type="password" name="senha_nova_conf" class="form-control" required minlength="6" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-4"></div>
+
+        <div class="col">
+          {{$.CSRFInput}}
+
+          <button class="btn btn-success">
+            Trocar senha
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+{{template "footer" .}}

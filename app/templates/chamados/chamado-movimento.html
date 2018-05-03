@@ -1,0 +1,159 @@
+{{template "header" .}}
+
+<section codcha="{{.chamado.CodCha}}" id="chamado-movimento">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-header">
+          Chamado {{.chamado.CodCha}}
+        </div>
+
+        <div class="row">
+          <div style="margin-left: 10px" class="col">
+            <li>
+              <b>Cliente:</b> {{.cliente.NomCli}}</li>
+            <li>
+              <b>Usuário da abertura:</b> {{.Chamado.Usuario.NomUsu}}</li>
+            <li>
+              <b>Título:</b> {{.chamado.NomTit}}
+            </li>
+
+            <button v-if="!show" class="btn btn-default btn-sm" @click="show = !show">
+              Mostrar Descrição
+            </button>
+            <button v-if="show" class="btn btn-default btn-sm" @click="show = !show">
+              Esconder Descrição
+            </button>
+          </div>
+
+          <div class="col">
+            <li>
+              <b>Abertura:</b> {{.chamado.DatCad.Format "02/01/2006" }}
+            </li>
+            <li>
+              <b>Situação:</b> {{.chamado.DsSituacao}}
+            </li>
+          </div>
+
+          <hr>
+
+          <div style="margin-left: 10px" class="row col-12">
+            <li v-if='show == true'>
+              <b>Descrição: </b>
+              <vue-markdown class="offset-1">{{.chamado.DesCha}}</vue-markdown>
+            </li>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card">
+        <div class="card-header">
+          RACs geradas deste chamado
+          {{if $.Usuario.EhPrestador}}
+            <a href="/racs/novo?codcha={{.chamado.CodCha}}" class="btn btn-success offset-6">Gerar RAC</a>
+          {{end}}
+        </div>
+        <div class="card-block">
+          <ul>
+            {{if not .racs}}
+              <li>Este chamado ainda não possui nenhuma RAC</li>
+            {{else}}
+              {{range $rac := .racs}}
+                <li>
+                  <a href="/racs/ver/{{$rac.CodRac}}">{{$rac.DesRac}}</a>
+                </li>
+              {{end}}
+            {{end}}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="card text-center">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs">
+        <li class="nav-item nav-item-movimentos">
+          <div v-if="aba === 'Com'">
+            <a class="nav-link active" data-toggle="comentarios" @click="aba = 'Com'" href="#comentarios">
+              Comentários
+              <span class="badge badge-pill badge-success">
+                ${ countcomentarios }
+              </span>
+            </a>
+          </div>
+          <div v-else>
+            <a class="nav-link" data-toggle="comentarios" @click="aba='Com'" href="#comentarios">
+              Comentários
+              <span class="badge badge-pill badge-success">
+                ${ countcomentarios }
+              </span>
+            </a>
+          </div>
+        </li>
+
+        {{if $.Usuario.VeAtividades}}
+          <li class="nav-item nav-item-movimentos">
+            <div v-if="aba === 'Ativ'">
+              <a class="nav-link active" data-toggle="atividade" @click="aba = 'Ativ'" href="#atividade">
+                Atividades
+                <span class="badge badge-pill badge-success">
+                  ${ countatividades }
+                </span>
+              </a>
+            </div>
+            <div v-else>
+              <a class="nav-link" data-toggle="atividade" @click="aba = 'Ativ'" href="#atividade">
+                Atividades
+                <span class="badge badge-pill badge-success">
+                  ${ countatividades }
+                </span>
+              </a>
+            </div>
+          </li>
+        {{end}}
+
+        <li class="nav-item nav-item-movimentos">
+          <div v-if="aba === 'Anex'">
+            <a class="nav-link active" @click="aba='Anex'" href="#anexos">
+              Anexos
+              <span class="badge badge-pill badge-success">{{.countanexo}}</span>
+            </a>
+          </div>
+          <div v-else>
+            <a class="nav-link" @click="aba='Anex'" href="#anexos">
+              Anexos
+              <span class="badge badge-pill badge-success">{{.countanexo}}</span>
+            </a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <br>
+
+  <div v-if="aba == 'Com'" class="row justify-content-center">
+    <div class="col-6">
+      {{template "chamado-movimento-comentario.html" .}}
+    </div>
+  </div>
+
+  <div v-if="aba === 'Ativ'" class="row justify-content-center">
+    <div class="col-8">
+      {{template "chamado-movimento-atividade.html" .}}
+    </div>
+  </div>
+
+  <div v-if="aba === 'Anex'" class="row justify-content-center">
+    <div class="col-6">
+      {{template "chamado-movimento-anexo.html" .}}
+    </div>
+  </div>
+</section>
+
+{{template "footer" .}}

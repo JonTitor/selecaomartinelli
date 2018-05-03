@@ -1,0 +1,56 @@
+{{template "header" .}}
+
+<section class="row justify-content-center">
+  <div class="col-10">
+    <h2 class="page-header">Clientes</h2>
+
+    <p>
+      <a class="btn btn btn-success" href="/clientes/novo">Novo Cadastro</a>
+    </p>
+
+    <table class="table table-bordered table-striped table-condensed table-sm table-responsive">
+      <thead>
+        <tr>
+          <th>Nome do Cliente</th>
+          <th>CNPJ</th>
+          <th>Inscrição estadual</th>
+          <th>Cidade</th>
+          <th>Endereço</th>
+          <th>UF</th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{range $cliente := .Clientes}}
+          <tr>
+            <td>{{$cliente.NomCli}}</td>
+            <td>{{if $cliente.NumCnp}}{{formataCNPJ $cliente.NumCnp}}{{end}}</td>
+            <td>{{$cliente.DesIns}}</td>
+            <td>{{$cliente.NomCid}}</td>
+            <td>{{$cliente.DesEnd}}</td>
+            <td>{{$cliente.UniFed}}</td>
+            <td class="is-center">
+              <a class="btn btn-secondary btn-xs" href="/tags?codcli={{$cliente.CodCli}}">
+                Categorias
+              </a>
+            </td>
+            <td class="is-center">
+              <a class="btn btn-secondary btn-xs" href="/valores?codcli={{$cliente.CodCli}}">
+                Valores
+              </a>
+            </td>
+            <td class="is-center">
+              <a class="btn btn-primary btn-xs" href="/clientes/editar/{{$cliente.CodCli}}">
+                Editar
+              </a>
+            </td>
+          </tr>
+        {{end}}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+{{template "footer" .}}

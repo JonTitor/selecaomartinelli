@@ -1,0 +1,13 @@
+{{template "header" .}}
+
+<section class="row justify-content-center">
+  <div class="col-6">
+    <h2 class="titulo">Novo Cliente</h2>
+
+    <form method="POST" action="/clientes/save">
+      {{template "cliente-form.html" .}}
+    </form>
+  </div>
+</section>
+
+{{template "footer" .}}

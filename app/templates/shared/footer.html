@@ -1,0 +1,10 @@
+{{define "footer"}}
+      </div>
+
+      <div id="build">{{.Build}}</div>
+
+      <script src='/assets/vendor.js?v={{index .MD5 "vendor.js"}}'></script>
+      <script src='/assets/app.js?v={{index .MD5 "app.js"}}'></script>
+    </body>
+  </html>
+{{end}}

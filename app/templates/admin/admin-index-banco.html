@@ -1,0 +1,66 @@
+<div class="row form-horizontal margin-bottom justify-content-center margin-b-sm">
+  <div class="col-3 control-label">
+    <label for="http.porta">Porta:</label>
+  </div>
+  <div class="col-4">
+    <input class="form-control" id="banco.porta" name="banco.porta" value="{{.Config.Banco.Porta}}" />
+  </div>
+</div>
+
+<div class="row form-horizontal margin-bottom justify-content-center margin-b-sm">
+  <div class="col-3 control-label">
+    <label for="http.porta">Servidor:</label>
+  </div>
+  <div class="col-4">
+    <input class="form-control" id="banco.servidor" name="banco.servidor" value="{{.Config.Banco.Servidor}}" />
+  </div>
+</div>
+
+<div class="row form-horizontal margin-bottom justify-content-center margin-b-sm">
+  <div class="col-3 control-label">
+    <label for="http.porta">SSL Mode:</label>
+  </div>
+  <div class="col-4">
+    <select class="form-control selectpicker" id="banco.sslmode" name="banco.sslmode">
+      <option {{if eq .Config.Banco.SSLMode "disable"}} selected {{end}}>disable</option>
+      <option {{if eq .Config.Banco.SSLMode "require"}} selected {{end}}>require</option>
+      <option {{if eq .Config.Banco.SSLMode "verify-ca"}} selected {{end}}>verify-ca</option>
+      <option {{if eq .Config.Banco.SSLMode "verify-full"}} selected {{end}}>verify-full</option>
+    </select>
+  </div>
+</div>
+
+<div class="row form-horizontal margin-bottom justify-content-center margin-b-sm">
+  <div class="col-3 control-label">
+    <label for="http.porta">Banco:</label>
+  </div>
+  <div class="col-4">
+    <input class="form-control" id="banco.banco" name="banco.banco" value="{{.Config.Banco.Banco}}" />
+  </div>
+</div>
+
+<div class="row form-horizontal margin-bottom justify-content-center margin-b-sm">
+  <div class="col-3 control-label">
+    <label for="http.porta">Usuário:</label>
+  </div>
+  <div class="col-4">
+    <input class="form-control" id="banco.usuario" name="banco.usuario" value="{{.Config.Banco.Usuario}}" />
+  </div>
+</div>
+
+<div class="row form-horizontal margin-bottom justify-content-center margin-b-sm">
+  <div class="col-3 control-label">
+    <label for="http.porta">Senha:</label>
+  </div>
+  <div class="col-4">
+    <input type="password" class="form-control" id="banco.senha" name="banco.senha" />
+  </div>
+</div>
+
+<div class="row form-horizontal margin-bottom justify-content-center margin-b-sm">
+  <div class="col-3"></div>
+
+  <div class="col-4">
+    <button class="btn btn-info" @click="verificarConexaoPostgreSQL" data-token="{{.Config.API.Token}}">Conectar</button>
+  </div>
+</div>

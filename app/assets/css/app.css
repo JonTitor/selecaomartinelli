@@ -1,0 +1,78 @@
+#build {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+}
+
+body,
+input,
+select,
+textarea,
+a,
+button {
+  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+}
+
+body {
+  overflow-y: scroll;
+}
+
+#navbar-icone {
+  width: 30px;
+  height: 30px;
+  border-radius: 0.25em;
+  background-color: #f1f1f1;
+}
+
+.page-header {
+  font-size: 2.5rem;
+  font-weight: 300;
+  line-height: 1.1;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: 0.25rem;
+}
+
+header {
+  background: #ebebeb;
+}
+
+.caixa-mensagens {
+  margin-top: 20px;
+}
+
+.is-center {
+  text-align: center;
+}
+.is-right {
+  text-align: right;
+}
+.is-left {
+  text-align: left;
+}
+.margin-b {
+  margin-bottom: 50px;
+}
+.margin-b-sm {
+  margin-bottom: 10px;
+}
+.margin-b-pesquisa {
+  margin-bottom: 10px;
+}
+
+.btn-xs {
+  padding: 0.05rem 0.25rem;
+  display: inline-block;
+  min-width: 30px;
+}
+
+#menu nav ul {
+  margin: 10px;
+  text-align: center;
+  list-style: none;
+}
+
+h2 {
+  margin-top: 30px !important;
+  margin-bottom: 30px !important;
+  text-align: center;
+}

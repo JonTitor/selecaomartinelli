@@ -1,0 +1,51 @@
+LAST_GIT_COMMIT:
+  sh: git log -n 1 --pretty=format:%h
+COMMIT_DATE:
+  sh: git log -n 1 --pretty=format:%ad --date=short
+
+CSS_VENDOR_SRC:
+  app/assets/css/vendor/normalize.css
+  app/assets/css/vendor/bootstrap.css
+  app/assets/css/vendor/bootstrap-grid.css
+  app/assets/css/vendor/bootstrap-reboot.css
+  app/assets/css/vendor/font-awesome.css
+  app/assets/css/vendor/tablecheck.css
+  app/assets/css/vendor/cssmodal.css
+  app/assets/css/vendor/pikaday.css
+  app/assets/css/vendor/spectrum.css
+  app/assets/css/vendor/dropzone.css
+  app/assets/css/vendor/bootstrap-vue.css
+
+CSS_SRC:
+  app/assets/css/fontes.css
+  app/assets/css/cores.css
+  app/assets/css/app.css
+  app/assets/css/chamado-movimento.css
+
+JS_VENDOR_SRC:
+  app/assets/js/vendor/jquery.js
+  app/assets/js/vendor/tether.js
+  app/assets/js/vendor/popper.js
+  app/assets/js/vendor/bootstrap.js
+  app/assets/js/vendor/vue.js
+  app/assets/js/vendor/bootstrap-vue.js
+  app/assets/js/vendor/click-confirm.js
+  app/assets/js/vendor/moments.js
+  app/assets/js/vendor/pikaday.js
+  app/assets/js/vendor/jsmodal.js
+  app/assets/js/vendor/Base64.js
+  app/assets/js/vendor/emulatetab.js
+  app/assets/js/vendor/spectrum.js
+  app/assets/js/vendor/vanillaTextMask.js
+  app/assets/js/vendor/polyfill.js
+  app/assets/js/vendor/dropzone.js
+  app/assets/js/vendor/vue-pikaday.js
+  app/assets/js/vendor/vue-markdown.js
+
+JS_SRC:
+  app/assets/js/app.js
+  app/assets/js/formataHora.js
+  app/assets/js/valor.js
+  app/assets/js/vue/admin.js
+  app/assets/js/pikaday.js
+  app/assets/js/mascaras.js

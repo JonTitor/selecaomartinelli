@@ -1,0 +1,21 @@
+<div class="form-group row">
+  <label class="form-control-label col-2 is-right" for="destgs">Descrição:</label>
+  <div class="col-10">
+    <input type="text" class="form-control" value="{{.tag.DesTgs}}" name="destgs" placeholder="">
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="form-control-label col-2 is-right" for="descor">Cor:</label>
+  <div class="col-10">
+    <input type="text" class="form-control spectrum-color" value="{{.tag.DesCor}}" name="descor" placeholder="">
+  </div>
+</div>
+
+<div class="form-group row justify-content-end">
+  <div class="col-10">
+    {{$.CSRFInput}}
+
+    <input class="btn btn-primary" type="submit" value="Enviar" />
+  </div>
+</div>

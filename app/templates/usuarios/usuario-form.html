@@ -1,0 +1,96 @@
+<div class="form-group row">
+  <label class="form-control-label col-2 is-right" for="codcli">Cliente:</label>
+  <div class="col-10">
+    <select required name="codcli" class="form-control">
+      {{range $cliente := .clientes}}
+      <option {{if $.ehEdit}} {{if eq $.usuario.CodCli $cliente.CodCli }} selected {{end}} {{end}} value="{{$cliente.CodCli}}">{{$cliente.NomCli}}</option>
+      {{end}}
+    </select>
+  </div>
+</div>
+
+<div class="form-group row">
+    <label class="form-control-label col-2 is-right" for="desemail">E-mail:</label>
+    <div class="col-10">
+      <input type="email" required value="{{.usuario.DesEma}}" class="form-control" name="desema" placeholder="" autofocus>
+    </div>
+  </div>
+  
+  <div class="form-group row">
+    <label class="form-control-label col-2 is-right" for="nomusu">Nome:</label>
+    <div class="col-6">
+      <input type="text" required value="{{.usuario.NomUsu}}" class="form-control" name="nomusu" placeholder="">
+    </div>
+  </div>
+  
+
+<div class="form-group row">
+    <label class="form-control-label col-2 is-right" for="tipusu">Tipo:</label>
+    <div class="col-3">
+      <select name="tipusu" class="form-control">
+        <option {{if .ehEdit}} {{if eq .usuario.TipUsu "C" }} selected {{end}} {{end}} value="C">Cliente</option>
+        <option {{if .ehEdit}} {{if eq .usuario.TipUsu "P" }} selected {{end}} {{end}} value="P">Prestador</option>
+      </select>
+    </div>
+  </div>
+  
+
+<div class="form-group row">
+  <label class="form-control-label col-2 is-right" for="nomusu">Usuario:</label>
+  <div class="col-3">
+    <input type="text" required value="{{.usuario.LogUsu}}" class="form-control" name="logusu" placeholder="">
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="form-control-label col-2 is-right" for="hassen">Senha:</label>
+  <div class="col-3">
+    <input type="password" {{if not .ehEdit}} required {{end}} class="form-control" name="hassen" placeholder="">
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="form-control-label col-2 is-right" for="hassenconfirm">Confirmação:</label>
+  <div class="col-3">
+    <input type="password" class="form-control" {{if not .ehEdit}} required {{end}} name="hassenconfirm" placeholder="">
+  </div>
+</div>
+
+<div class="form-group row">
+    <label class="form-control-label col-2 is-right" for="situsu">Situação:</label>
+    <div class="col-3">
+      <select name="situsu" class="form-control">
+        <option {{if .ehEdit}} {{if eq .usuario.SitUsu "A" }} selected {{end}} {{end}} value="A">Ativo</option>
+        <option {{if .ehEdit}} {{if eq .usuario.SitUsu "I" }} selected {{end}} {{end}} value="I">Inativo</option>
+      </select>
+    </div>
+  </div>
+
+<div class="form-group row">
+  <div class="col-2"></div>
+
+  <div class="form-check col-10">
+    <label class="form-check-label">
+      <input {{if .ehEdit}} {{if eq .usuario.RecEma "S"}} checked {{end}} {{end}} class="form-check-input" name="recema" type="checkbox" value="S"> Recebe e-mail dos chamados?
+    </label>
+  </div>
+</div>
+
+<div class="form-group row">
+  <div class="col-2"></div>
+
+  <div class="form-check col-10">
+    <label class="form-check-label">
+      <input {{if .ehEdit}} {{if eq .usuario.VerAtv "S"}} checked {{end}} {{end}} class="form-check-input" name="veratv" type="checkbox" value="S"> Usuário vê a aba de atividades?
+    </label>
+  </div>
+</div>
+
+<div class="form-group row">
+  <div class="col-2"></div>
+
+  <div class="col-10">
+    {{$.CSRFInput}}
+    <input class="btn btn-primary" type="submit" value="Enviar" />
+  </div>
+</div>

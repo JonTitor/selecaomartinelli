@@ -1,0 +1,21 @@
+{{template "header" .}}
+
+<section>
+  <div class="row justify-content-around">
+    {{if .Usuario}}
+    <div class="col-sm-6">
+      {{template "index-portifolio.html" .}}
+    </div>
+    {{else}}
+      <div class="col-sm-4">
+        {{template "index-login.html" .}}
+      </div>
+
+      <div class="col-sm-3">
+        <img class="img-fluid margin-b" {{if .logo}} src="/logo" {{else}} src="/assets/imagens/logo.png" {{end}}>
+      </div>
+      {{end}}
+  </div>
+</section>
+
+{{template "footer" .}}

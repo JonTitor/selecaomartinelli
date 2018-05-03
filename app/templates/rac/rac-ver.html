@@ -1,0 +1,96 @@
+{{template "header" .}}
+
+<section class="row justify-content-center">
+  <div class="col-9">
+    <h1 class="page-header">RAC - {{.Rac.CodRac}}</h1>
+
+    <div class="card">
+      <div class="card-header">
+        INFORMAÇÕES
+        <div class="offset-9 row">
+          <a class="btn btn-sm btn-success " target="_blank" href="/racs/pdf/{{.Rac.CodRac}}">
+            Ver em PDF
+          </a>
+
+          {{if .Usuario.EhPrestador}}
+            <form method="POST" action="/racs/delete/{{.Rac.CodRac}}"
+              data-confirm="Tem certeza que deseja deletar esta RAC?">
+              {{$.CSRFInput}}
+              <button type="submit" class="btn btn-sm btn-danger">Deletar RAC</button>
+            </form>
+          {{end}}
+        </div>
+      </div>
+      <div class="card-block">
+        <div class="row">
+          <div class="col">
+            <p><b>Cliente:</b> {{.Rac.Cliente.NomCli}}</p>
+            <p><b>Chamado:</b> {{.Rac.Chamado.CodCha}}</p>
+            <p><b>Titulo:</b> {{.Rac.NomTit}}</p>
+            <p><b>Descrição:</b> {{markdown .Rac.DesRac}}</p>
+          </div>
+          <div class="col">
+            <p><b>Situação:</b> {{.Rac.DsSituacao}}</p>
+            <p><b>Tempo Total:</b> {{printf "%.2f" .Rac.TempoHoras}}</p>
+            <p><b>Valor Total:</b> {{printf "R$ %.2f" .Rac.ValRac}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <h3>Atividades</h3>
+
+    <table class="table table-bordered table-striped table-condensed table-sm table-responsive">
+      <thead>
+        <tr>
+          <th>Descrição</th>
+          <th>Usuário</th>
+          <th>Valor</th>
+        </tr>
+      </thead>
+
+      {{range $racAtividade := .Atividades}}
+        <tbody>
+          <tr>
+            <td>{{markdown $racAtividade.Atividade.DesAtv}}</td>
+            <td>{{$racAtividade.Usuario.NomUsu}}</td>
+            <td>{{if $racAtividade.ValAtv}}{{printf "R$ %.2f" $racAtividade.ValAtv}}{{end}}</td>
+          </tr>
+          {{if eq $racAtividade.AtividadeTipo.TipMed "T"}}
+            <tr>
+              <td colspan="3">
+                {{template "rac-ver-hora.html" $racAtividade}}
+              </td>
+            </tr>
+          {{end}}
+          {{if eq $racAtividade.AtividadeTipo.TipMed "K"}}
+            <tr>
+              <td colspan="3">
+                {{template "rac-ver-quantidade.html" $racAtividade}}
+              </td>
+            </tr>
+          {{end}}
+        </tbody>
+      {{end}}
+
+      <tfoot>
+        <tr>
+          <th colspan="3">TOTAL:</th>
+        </tr>
+        <tr>
+          <th>Horas: {{printf "%.2f" .Rac.TempoHoras}}</th>
+          <th>Quantidades: {{printf "%.2f" .Atividades.QuantidadeTotal}}</th>
+          <th>Valores: {{printf "R$ %.2f" .Atividades.ValorTotal}}</th>
+        </tr>
+        <tr>
+          <th colspan="2" style="visibility: hidden"></th>
+          <th>Valor da RAC: {{printf "R$ %.2f" .Rac.ValRac}}</th>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</section>
+
+{{template "footer" .}}

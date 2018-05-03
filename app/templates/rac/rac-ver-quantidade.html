@@ -1,0 +1,18 @@
+<table class="table table-bordered table-striped table-condensed table-sm table-responsive">
+  <thead>
+    <tr class="bg-info">
+      <th>Data Início</th>
+      <th>Data Término</th>
+      <th>Quantidade</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{range $quantidade := .AtividadeQuantidades}}
+      <tr class="table-info">
+        <td>{{$quantidade.DatIni.Format "02/01/2006 15:04"}}</td>
+        <td>{{$quantidade.DatFim.Format "02/01/2006 15:04"}}</td>
+        <td>{{printf "%.2f" $quantidade.QtdAtv}}</td>
+      </tr>
+    {{end}}
+  </tbody>
+</table>

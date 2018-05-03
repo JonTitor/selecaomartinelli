@@ -1,0 +1,38 @@
+{{template "header" .}}
+
+<div class="row justify-content-center">
+  <div class="col-4">
+    <h1 class="page-header">Painel de configuração</h1>
+
+    <form method="POST" class="form-horizontal" action="/admin/login/">
+      <div class="form-group row">
+        <div class="col-md-2 control-label">
+          <label for="usuario">Usuário:</label>
+        </div>
+        <div class="col-md-10">
+          <input id="usuario" name="usuario" required="required" placeholder="Usuário" class="form-control" autofocus />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-md-2 control-label">
+          <label for="senha">Senha:</label>
+        </div>
+        <div class="col-md-10">
+          <input id="senha" name="senha" type="password" required="required" placeholder="Senha" class="form-control" />
+        </div>
+      </div>
+
+      <div class="row justify-content-end">
+        <div class="col-md-10">
+          {{$.CSRFInput}}
+
+          <input class="col-md-offset-4" type="hidden" name="_xsrf" value="{{.XSRFToken}}" />
+          <button class="btn btn-primary">Acessar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+{{template "footer" .}}

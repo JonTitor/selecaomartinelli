@@ -1,0 +1,48 @@
+{{template "header" .}}
+
+<section class="row justify-content-center">
+  <div class="col-6">
+    <h2 class="page-header">Categorias de {{.Cliente.NomCli}}</h2>
+
+    <p>
+      <a class="btn btn btn-success" href="/tags/novo?codcli={{.Cliente.CodCli}}">
+        Nova Categoria
+      </a>
+    </p>
+
+    <table class="table table-bordered table-striped table-condensed table-sm table-responsive">
+      <thead>
+        <tr>
+          <th>Descrição</th>
+          <th>Cor</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{range $tag := .Tags}}
+          <tr>
+            <td>{{$tag.DesTgs}}</td>
+            <td style="background: {{$tag.DesCor}}"></td>
+            <td class="is-center">
+              <form method="POST" action="/tags/deletar?codcli={{$tag.CodCli}}&codtgs={{$tag.CodTgs}}"
+                data-confirm="Tem certeza que quer deletar esta categoria?">
+                {{$.CSRFInput}}
+                <button class="btn btn-danger btn-xs">
+                  Deletar
+                </button>
+              </form>
+            </td>
+            <td class="is-center">
+              <a class="btn btn-primary btn-xs" href="/tags/editar?codtgs={{$tag.CodTgs}}&codcli={{$tag.CodCli}}">
+                Editar
+              </a>
+            </td>
+          </tr>
+        {{end}}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+{{template "footer" .}}

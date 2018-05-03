@@ -1,0 +1,74 @@
+<div class="row justify-content-between margin-b-sm">
+  <div class="col is-left">
+    <a class="btn btn btn-success" href="/chamados/novo">Novo Chamado</a>
+  </div>
+
+  <div class="col is-center">
+    Página {{.Form.Pagina}} de {{.UltimaPagina}}
+  </div>
+
+  <div class="col is-right">
+    <div class="row justify-content-between">
+      <div class="col">
+        <a class="btn btn-primary {{if eq .Form.Pagina 1}}disabled{{end}}" href="?p={{sub .Form.Pagina 1}}&codcli={{.Form.CodCli}}&sitcha={{.Form.SitCha}}&codtgs={{.Form.CodTgs}}">
+          Anterior
+        </a>
+      </div>
+
+      <div class="col">
+        <a class="btn btn-primary {{if eq .Form.Pagina .UltimaPagina}}disabled{{end}}" href="?p={{add .Form.Pagina 1}}&codcli={{.Form.CodCli}}&sitcha={{.Form.SitCha}}&codtgs={{.Form.CodTgs}}">
+          Próximo
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form class="row justify-content-between margin-b-sm">
+  <div class="col">
+    <div class="form-group row">
+      <label class="col-4 col-form-label">Cliente:</label>
+      <div class="col">
+        <select class="form-control" name="codcli" data-submit-on-change>
+          <option value="">TODOS</option>
+          {{range $cliente := .Clientes}}
+            <option value="{{$cliente.CodCli}}" {{if eq $.Form.CodCli $cliente.CodCli}}selected{{end}}>
+              {{$cliente.NomCli}}
+            </option>
+          {{end}}
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="form-group row">
+      <label class="col-4 col-form-label">Situação:</label>
+      <div class="col">
+        <select class="form-control" name="sitcha" data-submit-on-change>
+          <option value="1">TODOS</option>
+          <option value="A" {{if eq $.Form.SitCha "A"}}selected{{end}}>Aberto</option>
+          <option value="P" {{if eq $.Form.SitCha "P"}}selected{{end}}>Pendente</option>
+          <option value="S" {{if eq $.Form.SitCha "S"}}selected{{end}}>Suspenso</option>
+          <option value="F" {{if eq $.Form.SitCha "F"}}selected{{end}}>Fechado</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="form-group row">
+      <label class="col-4 col-form-label">Categorias:</label>
+      <div class="col">
+        <select class="form-control" name="codtgs" data-submit-on-change>
+          <option value="">TODAS</option>
+          {{range $tag := .Tags}}
+            <option value="{{$tag.CodTgs}}" {{if eq $.Form.CodTgs $tag.CodTgs}}selected{{end}}>
+              {{$tag.DesTgs}}
+            </option>
+          {{end}}
+        </select>
+      </div>
+    </div>
+  </div>
+</form>

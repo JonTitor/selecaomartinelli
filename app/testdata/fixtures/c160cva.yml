@@ -1,0 +1,23 @@
+- codcva: 1
+  codcli: 1
+  codatt: 1
+  datapt: '2016-03-03'
+  valacr: 2
+  datcad: '2016-03-03 00:00'
+  datalt: '2016-03-03 00:00'
+
+- codcva: 2
+  codcli: 1
+  codatt: 2
+  datapt: '2016-03-03'
+  valacr: 2
+  datcad: '2016-03-03 00:00'
+  datalt: '2016-03-03 00:00'
+
+- codcva: 3
+  codcli: 1
+  codatt: 3
+  datapt: '2016-03-03'
+  valacr: 0
+  datcad: '2016-03-03 00:00'
+  datalt: '2016-03-03 00:00'

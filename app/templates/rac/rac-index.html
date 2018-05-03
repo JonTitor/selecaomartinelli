@@ -1,0 +1,56 @@
+{{template "header" .}}
+
+<section class="row justify-content-center">
+  <div class="col-10">
+    <h2 class="page-header">RACs</h2>
+
+    {{template "rac-index-filtros.html" .}}
+
+    {{if not .Racs}}
+      <div class="card">
+        <div class="card-body">
+          <p class="card-text">
+            Nenhuma RAC encontrada para os filtros informados
+          </p>
+        </div>
+      </div>
+    {{else}}
+      <table class="table table-bordered table-striped table-condensed table-sm table-responsive">
+        <thead>
+          <tr>
+            <th>Cliente</th>
+            <th>Chamado</th>
+            <th>Título</th>
+            <th>Situação</th>
+            <th>Criação</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {{range $rac := .Racs}}
+            <tr>
+              <td>{{$rac.Cliente.NomCli}}</td>
+              <td>{{$rac.Chamado.NomTit}}</td>
+              <td>{{$rac.NomTit}}</td>
+              <td>{{$rac.DsSituacao}}</td>
+              <td>{{$rac.DatCad.Format "02/01/2006"}}</td>
+              <td class="is-center">
+                <a class="btn btn-secondary btn-xs" href="/racs/ver/{{$rac.CodRac}}">
+                  Ver
+                </a>
+              </td>
+              <td class="is-center">
+                <a class="btn btn-secondary btn-xs" target="_blank" href="/racs/pdf/{{$rac.CodRac}}">
+                  PDF
+                </a>
+              </td>
+            </tr>
+          {{end}}
+        </tbody>
+      </table>
+    {{end}}
+  </div>
+</section>
+
+{{template "footer" .}}

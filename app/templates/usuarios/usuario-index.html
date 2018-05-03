@@ -1,0 +1,62 @@
+{{template "header" .}}
+
+<section class="row justify-content-center">
+  <div class="col-12">
+    <h2 class="page-header">Usuários</h2>
+
+    <p>
+      <a class="btn btn btn-success" href="/usuarios/novo">Novo Usuário</a>
+    </p>
+
+    <table class="table table-bordered table-striped table-condensed table-sm table-responsive">
+      <thead>
+        <tr>
+          <th>Nome Completo</th>
+          <th>Nome de Usuário</th>
+          <th>E-mail</th>
+          <th>Cliente</th>
+          <th>Situação</th>
+          <th>Tipo</th>
+          <th>Vê atividades</th>
+          <th>Recebe e-mail</th>
+          <th>Criado em</th>
+          <th>Atualizado em</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{range $usuario := .Usuarios}}
+          <tr>
+            <td>{{$usuario.NomUsu}} </td>
+            <td>{{$usuario.LogUsu}}</td>
+            <td>{{$usuario.DesEma}}</td>
+            <td>{{if $usuario.Cliente}}{{$usuario.Cliente.NomCli}}{{end}}</td>
+            <td>{{$usuario.DsSituacao}}</td>
+            <td>{{$usuario.DsTipo}}</td>
+            <td>{{$usuario.DsVeAtividades}}</td>
+            <td>{{$usuario.DsRecebeEmail}}</td>
+            <td>{{$usuario.DatCad.Format "02/01/2006"}}</td>
+            <td>{{$usuario.DatAlt.Format "02/01/2006"}}</td>
+            <td class="is-center">
+              <form method="POST" action="/usuarios/deletar/{{$usuario.CodUsu}}"
+                data-confirm="Tem certeza que quer deletar este usuário?">
+                {{$.CSRFInput}}
+                <button class="btn btn-danger btn-xs">
+                  Deletar
+                </button>
+              </form>
+            </td>
+            <td class="is-center">
+              <a class="btn btn-primary btn-xs" href="/usuarios/editar/{{$usuario.CodUsu}}">
+                Editar
+              </a>
+            </td>
+          </tr>
+        {{end}}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+{{template "footer" .}}

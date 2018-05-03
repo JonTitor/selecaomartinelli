@@ -1,0 +1,18 @@
+<table class="table table-bordered table-striped table-condensed table-sm table-responsive">
+  <thead>
+    <tr class="bg-info">
+      <th>Data Início</th>
+      <th>Data Término</th>
+      <th>Horas</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{range $hora := .RacAtividadeHoras}}
+      <tr class="table-info">
+        <td>{{$hora.DatIni.Format "02/01/2006 15:04"}}</td>
+        <td>{{$hora.DatFim.Format "02/01/2006 15:04"}}</td>
+        <td>{{printf "%.2f" $hora.DiffHoras}}</td>
+      </tr>
+    {{end}}
+  </tbody>
+</table>

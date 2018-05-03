@@ -1,0 +1,42 @@
+<div class="form-group row">
+  <label class="form-control-label col-2 is-right">Cliente:</label>
+  <div class="col-10">
+    <select required v-model="codcli" class="form-control" name="codcli">
+      <option value=""></option>
+      {{range $cliente := .clientes}}
+        <option {{if $.ehEdit}} {{if eq $.alerta.CodCli $cliente.CodCli}} selected {{end}} {{end}} value="{{$cliente.CodCli}}">{{$cliente.NomCli}}</option>
+      {{end}}
+    </select>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="form-control-label col-2 is-right">Descrição:</label>
+  <div class="col-10">
+    <textarea name="desale" class="form-control" rows="3">{{.alerta.DesAle}}</textarea>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="form-control-label col-2 is-right">Situação:</label>
+  <div class="col-4">
+    <select class="form-control" name="sitale">
+      {{if .ehEdit}}
+      <option {{if eq $.alerta.SitAle "N"}} selected {{end}} value="I">Inativo</option>
+      <option {{if eq $.alerta.SitAle "A"}} selected {{end}} value="A">Ativo</option>
+      {{else}}
+        <option value="I">Inativo</option>
+        <option value="A" selected>Ativo</option>
+        {{end}}
+    </select>
+  </div>
+</div>
+
+<div class="form-group row">
+  <div class="col-2"></div>
+  <div class="col-10">
+    {{$.CSRFInput}}
+    <input class="btn btn-primary" type="submit" value="Enviar" />
+  </div>
+</div>
+

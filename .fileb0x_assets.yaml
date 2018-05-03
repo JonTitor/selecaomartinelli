@@ -1,0 +1,18 @@
+pkg: assets
+
+dest: "./app/fileb0x/assets/"
+
+fmt: true
+compression:
+  compress: true
+  method: "BestCompression"
+  keep: false
+
+clean: false
+unexporTed: false
+spread: false
+
+custom:
+  - files:
+    - "./app/public/"
+    base: "app/public/"

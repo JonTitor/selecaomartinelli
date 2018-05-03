@@ -1,0 +1,17 @@
+- codatt: 1
+  desatt: Tempo
+  tipmed: T
+  datcad: '2016-03-03 00:00'
+  datalt: '2016-03-03 00:00'
+
+- codatt: 2
+  desatt: Quilometragem
+  tipmed: K
+  datcad: '2016-03-03 00:00'
+  datalt: '2016-03-03 00:00'
+
+- codatt: 3
+  desatt: Valor
+  tipmed: V
+  datcad: '2016-03-03 00:00'
+  datalt: '2016-03-03 00:00'

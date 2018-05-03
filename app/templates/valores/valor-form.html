@@ -1,0 +1,32 @@
+<div class="form-group row">
+  <label class="form-control-label col-2 is-right" for="datapt">Data:</label>
+  <div class="col-3">
+    <input type="text" readonly="true" data-proximo-ao-selecionar required value="{{.valor.DatApt.Format "02/01/2006"}}" data-disable-time data-format="DD/MM/YYYY" class="form-control pikaday" name="datapt">
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="form-control-label col-2 is-right" for="codatt">Atividade:</label>
+  <div class="col-6">
+    <select required class="form-control" name="codatt">
+      {{range $atvtipo := .atvtipos}}
+        <option {{if $.ehEdit}} {{if eq $.valor.CodAtt $atvtipo.CodAtt}} selected {{end}} {{end}} value="{{$atvtipo.CodAtt}}">{{$atvtipo.DesAtt}}</option>
+      {{end}}
+    </select>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="form-control-label col-2 is-right" for="valacr">Valor:</label>
+  <div class="col-4 input-group ">
+    <div class="input-group-addon">R$</div>
+    <input required id="vlritm" value="{{.valor.ValAcr}}" class="form-control" name="valacr">
+  </div>
+</div>
+
+<div class="form-group row justify-content-end">
+  <div class="col-10">
+    {{$.CSRFInput}}
+    <input class="btn btn-primary" type="submit" value="Enviar" />
+  </div>
+</div>

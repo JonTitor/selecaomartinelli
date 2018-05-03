@@ -1,0 +1,35 @@
+- codatv: 1
+  codcha: 1
+  codusu: 1
+  codatt: 1
+  vlratv: null
+  desatv: teste
+  datcad: '2016-03-03 00:00'
+  datalt: '2016-03-03 00:00'
+
+- codatv: 2
+  codcha: 1
+  codusu: 1
+  codatt: 2
+  vlratv: null
+  desatv: teste2
+  datcad: '2016-03-03 00:00'
+  datalt: '2016-03-03 00:00'
+
+- codatv: 3
+  codcha: 1
+  codusu: 1
+  codatt: 3
+  vlratv: 30
+  desatv: teste
+  datcad: '2016-03-03 00:00'
+  datalt: '2016-03-03 00:00'
+
+- codatv: 4
+  codcha: 1
+  codusu: 1
+  codatt: 1
+  vlratv: null
+  desatv: teste
+  datcad: '2016-03-03 00:00'
+  datalt: '2016-03-03 00:00'
