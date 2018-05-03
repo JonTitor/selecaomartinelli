@@ -79,6 +79,11 @@ func NewRouter(logWriter io.Writer) *gin.Engine {
 
 	routerInit.GET("/", index)
 
+	usuario := routerInit.Group("/usuario")
+	usuario.GET("/", IndexUsuarios)
+	usuario.GET("/new", wrapErr(SaveUsuario))
+	usuario.POST("/save", adminIndexPost)
+
 	admin := routerInit.Group("/admin")
 	admin.GET("/", adminIndex)
 	admin.POST("/save", adminIndexPost)
@@ -89,11 +94,10 @@ func NewRouter(logWriter io.Writer) *gin.Engine {
 	return routerInit
 }
 
-func deveEstarLogado(c *gin.Context) {
-	_, existe := c.Get("Usuario")
-	if !existe {
-		c.Redirect(http.StatusSeeOther, "/")
-		c.Abort()
+func wrapErr(f func(c *gin.Context) error) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		if err := f(c); err != nil {
+			handleError(c, err)
+		}
 	}
-
 }

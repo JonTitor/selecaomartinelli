@@ -31,6 +31,8 @@ func EfetuarMicracao() error {
 			&modelos.Estado{},
 			&modelos.Cidade{},
 			&modelos.Usuario{},
+			&modelos.Usuario_Comum{},
+			&modelos.Usuario_Empresa{},
 		).Error
 
 		if err != nil {
@@ -43,9 +45,14 @@ func EfetuarMicracao() error {
 		}{
 			{&modelos.Estado{}, "codpais", "s010pais (codpais)"},
 			{&modelos.Cidade{}, "codest", "s020est (codest)"},
-			{&modelos.Usuario{}, "codpais", "s010pais (codpais)"},
-			{&modelos.Usuario{}, "codest", "s020est (codest)"},
-			{&modelos.Usuario{}, "codcid", "s030cid (codcid)"},
+			{&modelos.Usuario_Comum{}, "codpais", "s010pais (codpais)"},
+			{&modelos.Usuario_Comum{}, "codest", "s020est (codest)"},
+			{&modelos.Usuario_Comum{}, "codcid", "s030cid (codcid)"},
+			{&modelos.Usuario_Comum{}, "codusu", "s040usu (codusu)"},
+			{&modelos.Usuario_Empresa{}, "codpais", "s010pais (codpais)"},
+			{&modelos.Usuario_Empresa{}, "codest", "s020est (codest)"},
+			{&modelos.Usuario_Empresa{}, "codcid", "s030cid (codcid)"},
+			{&modelos.Usuario_Empresa{}, "codusu", "s040usu (codusu)"},
 		}
 		for _, r := range referencias {
 			err = tx.Model(r.modelo).AddForeignKey(r.coluna, r.destino, "RESTRICT", "RESTRICT").Error

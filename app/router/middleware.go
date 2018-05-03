@@ -1,8 +1,10 @@
 package router
 
 import (
+	"fmt"
 	"mime"
 	"net/http"
+	"net/url"
 	"path/filepath"
 	"strings"
 	"time"
@@ -10,6 +12,7 @@ import (
 	"martinelli/seletivomartinelli/app/build"
 	"martinelli/seletivomartinelli/app/config"
 	"martinelli/seletivomartinelli/app/fileb0x/assets"
+	"martinelli/seletivomartinelli/app/modulos/util"
 
 	"github.com/gin-gonic/gin"
 )
@@ -66,5 +69,12 @@ func serveFile(file string, cache bool) gin.HandlerFunc {
 		}
 
 		c.Data(http.StatusOK, mimeType, bytes)
+	}
+}
+func deveEstarLogado(c *gin.Context) {
+	if _, exists := c.Get("Usuario"); !exists {
+		urlStr := fmt.Sprintf("/session/new?url=%s", url.QueryEscape(util.Base64Encode(c.Request.URL.RequestURI())))
+		c.Redirect(http.StatusSeeOther, urlStr)
+		c.Abort()
 	}
 }

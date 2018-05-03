@@ -53,10 +53,10 @@ func addFlash(c *gin.Context, mensagem string, args ...interface{}) {
 	s.Save()
 }
 
-func redirect(c *gin.Context, mensagem string, args ...interface{}) {
-	c.Redirect(http.StatusSeeOther, fmt.Sprintf(mensagem, args...))
+func html(c *gin.Context, p string) error {
+	c.HTML(http.StatusOK, p, c.Keys)
+	return nil
 }
-
 func getUsuario(c *gin.Context) *modelos.Usuario {
 	return c.MustGet("Usuario").(*modelos.Usuario)
 }
@@ -73,4 +73,12 @@ func handleError(c *gin.Context, err error) {
 func index(c *gin.Context) {
 
 	c.HTML(http.StatusOK, "index.html", c.Keys)
+}
+func redirect(c *gin.Context, mensagem string, args ...interface{}) error {
+	if len(args) == 0 {
+		args = []interface{}{mensagem}
+		mensagem = "%s"
+	}
+	c.Redirect(http.StatusSeeOther, fmt.Sprintf(mensagem, args...))
+	return nil
 }

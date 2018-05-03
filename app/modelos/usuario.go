@@ -8,24 +8,15 @@ import (
 )
 
 type Usuario struct {
-	CodUsu  int            `gorm:"column:codusu;primary_key;auto_increment"`
-	DesEma  string         `gorm:"column:desema;type:varchar(255);"`
-	HasSen  sql.NullString `gorm:"column:hassen;"`
-	DatCad  time.Time      `gorm:"column:datcad;type:timestamp(0);not null"`
-	DatAlt  time.Time      `gorm:"column:datalt;type:timestamp(0);not null"`
-	NomUsu  string         `gorm:"column:nomusu;type:varchar(255);"`
-	LogUsu  string         `gorm:"column:logusu;type:varchar(255);"`
-	TipUsu  string         `gorm:"column:tipusu;type:varchar(1);"`
-	DatNac  time.Time      `gorm:"column:datnac;type:date;not null"`
-	NumTel  string         `gorm:"column:numtel;type:varchar(15);"`
-	CodPais int            `gorm:"column:codpais;not null;"`
-	CodCid  int            `gorm:"column:codcid;not null;"`
-	CodEst  int            `gorm:"column:codest;not null;"`
-	NomEnd  string         `gorm:"column:usuend;not null;"`
-
-	Paises  *Pais   `gorm:"ForeignKey:CodPais;AssociationForeignKey:CodPais"`
-	Estados *Estado `gorm:"ForeignKey:CodEst;AssociationForeignKey:CodEst"`
-	Cidades *Cidade `gorm:"ForeignKey:CodCid;AssociationForeignKey:CodCid"`
+	CodUsu int            `gorm:"column:codusu;primary_key;auto_increment"`
+	DesEma string         `gorm:"column:desema;type:varchar(255);"`
+	HasSen sql.NullString `gorm:"column:hassen;"`
+	DatCad time.Time      `gorm:"column:datcad;type:timestamp(0);not null"`
+	DatAlt time.Time      `gorm:"column:datalt;type:timestamp(0);not null"`
+	NomUsu string         `gorm:"column:nomusu;type:varchar(255);"`
+	LogUsu string         `gorm:"column:logusu;type:varchar(255);"`
+	TipUsu string         `gorm:"column:tipusu;type:varchar(1);"`
+	SitUsu string         `gorm:"column:situsu;type:varchar(1);"`
 }
 
 func (*Usuario) TableName() string { return "s040usu" }
