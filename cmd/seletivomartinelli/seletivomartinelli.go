@@ -5,11 +5,10 @@ import (
 	"log"
 	"os"
 
-	"sardo/helpdesk/app/build"
-	"sardo/helpdesk/app/config"
-	"sardo/helpdesk/app/modelos"
-	"sardo/helpdesk/app/modulos/migracoes"
-	"sardo/helpdesk/app/router"
+	"martinelli/seletivomartinelli/app/build"
+	"martinelli/seletivomartinelli/app/config"
+	"martinelli/seletivomartinelli/app/modulos/migracoes"
+	"martinelli/seletivomartinelli/app/router"
 
 	"gopkg.in/urfave/cli.v1"
 )
@@ -68,14 +67,6 @@ func main() {
 	}
 	app.Action = func(c *cli.Context) error {
 		setup()
-
-		if err := modelos.CriaClienteSeNaoExiste(); err != nil {
-			log.Fatalf("Erro ao criar cliente: %v\n", err)
-		}
-
-		if err := modelos.CriaUsuarioAdminSeNaoExiste(); err != nil {
-			log.Fatalf("Erro ao criar usuário admin: %v\n", err)
-		}
 		var porta int
 		if c.IsSet("porta") {
 			porta = c.Int("porta")

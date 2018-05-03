@@ -6,7 +6,7 @@ type Estado struct {
 	UnfEst  string `gorm:"column:unfest;type:varchar(2);"`
 	UnfIbg  int    `gorm:"column:unfibg;"`
 	CodPais int    `gorm:"column:codpais;"`
-	EstDdd  string `gorm:"column:estddd;type:varchar(50);not null"`
+	EstDdd  string `gorm:"column:estddd;type:varchar(50)"`
 
 	Paises *Pais `gorm:"ForeignKey:CodPais;AssociationForeignKey:CodPais"`
 }

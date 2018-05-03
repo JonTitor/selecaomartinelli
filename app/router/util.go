@@ -4,11 +4,10 @@ import (
 	"database/sql"
 	"fmt"
 	"net/http"
-	"os"
 	"time"
 
-	"sardo/helpdesk/app/config"
-	"sardo/helpdesk/app/modelos"
+	"martinelli/seletivomartinelli/app/config"
+	"martinelli/seletivomartinelli/app/modelos"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
@@ -72,28 +71,6 @@ func handleError(c *gin.Context, err error) {
 }
 
 func index(c *gin.Context) {
-	var codusu interface{}
-
-	s := sessions.Default(c)
-	codusu = s.Get("codusu")
-	if codusu != nil {
-		usuario, err := modelos.GetUsuario(codusu.(string))
-		if err != nil {
-			fmt.Println(err)
-		}
-		alerta, err := modelos.GetClienteAlerta(usuario, true)
-		if err != nil {
-			fmt.Println(err)
-		}
-		if alerta.DesAle != "" {
-			addMensagem(c, alerta.DesAle)
-
-		}
-	}
-
-	_, err := os.Stat("logo.png")
-	logoExiste := err == nil
-	c.Set("logo", logoExiste)
 
 	c.HTML(http.StatusOK, "index.html", c.Keys)
 }

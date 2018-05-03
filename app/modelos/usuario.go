@@ -18,7 +18,7 @@ type Usuario struct {
 	TipUsu  string         `gorm:"column:tipusu;type:varchar(1);"`
 	DatNac  time.Time      `gorm:"column:datnac;type:date;not null"`
 	NumTel  string         `gorm:"column:numtel;type:varchar(15);"`
-	CodPais int            `gorm:"column:codpais;type:varchar(255);"`
+	CodPais int            `gorm:"column:codpais;not null;"`
 	CodCid  int            `gorm:"column:codcid;not null;"`
 	CodEst  int            `gorm:"column:codest;not null;"`
 	NomEnd  string         `gorm:"column:usuend;not null;"`
