@@ -10,24 +10,20 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     {{if .Usuario}}
       <ul class="navbar-nav mr-auto">
-        {{if .Usuario.EhPrestador}}
+        {{if .Usuario.EhEmpresa}}
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
               Cadastros
             </a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="/clientes">Clientes</a>
-              <a class="dropdown-item" href="/usuarios">Usuários</a>
-              <a class="dropdown-item" href="/atividadetipos">Tipos de atividade</a>
-              <a class="dropdown-item" disabled href="/alertas">Alertas</a>
+              <a class="dropdown-item" href="/processo">Processo</a>
+              <a class="dropdown-item" href="/etapas">Etapas</a>
+              <a class="dropdown-item" href="/perguntas">Perguntas</a>
             </div>
           </li>
         {{end}}
         <li class="nav-item">
-          <a class="nav-link" href="/chamados">Chamados</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/racs">RACs</a>
+          <a class="nav-link" href="/analise">Analise</a>
         </li>
       </ul>
     {{end}}

@@ -5,6 +5,9 @@ import (
 	"time"
 
 	"martinelli/seletivomartinelli/app/config"
+
+	"github.com/jinzhu/gorm"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type Usuario struct {
@@ -22,6 +25,7 @@ type Usuario struct {
 	CodCid  int            `gorm:"column:codcid;not null;"`
 	CodEst  int            `gorm:"column:codest;not null;"`
 	NomEnd  string         `gorm:"column:usuend;not null;"`
+	TipUsu  string         `gorm:"column:tipusu;type:varchar(1);"`
 
 	Paises  *Pais   `gorm:"ForeignKey:CodPais;AssociationForeignKey:CodPais"`
 	Estados *Estado `gorm:"ForeignKey:CodEst;AssociationForeignKey:CodEst"`
@@ -30,10 +34,10 @@ type Usuario struct {
 
 func (*Usuario) TableName() string { return "s040usu" }
 
+func (u *Usuario) EhEmpresa() bool { return u.TipUsu == "E" }
+
 func GetUsuarios() (usuario []*Usuario, err error) {
-	linhas := config.DB.Preload("Cliente").
-		Joins("LEFT JOIN c100cli ON (c100cli.codcli = c120usu.codcli)").
-		Order("nomusu")
+	linhas := config.DB.Preload("Paises").Preload("Estados").Preload("Cidades").Order("nomusu")
 
 	err = linhas.
 		Find(&usuario).
@@ -43,7 +47,7 @@ func GetUsuarios() (usuario []*Usuario, err error) {
 
 func GetUsuario(id string) (*Usuario, error) {
 	usuario := &Usuario{}
-	err := config.DB.Preload("Cliente").
+	err := config.DB.Preload("Paises").Preload("Estados").Preload("Cidades").
 		Where("codusu = ?", id).
 		First(&usuario).
 		Error
@@ -83,4 +87,51 @@ func SeUsuarioExiste(nomusu string, desema string, codusu string) (bool, error) 
 		return false, nil
 	}
 
+}
+func CriaUsuarioAdminSeNaoExiste() error {
+	var usuario Usuario
+	if config.DB.Where("numcpf = ?", 0).First(&usuario).RecordNotFound() {
+		usuario = Usuario{
+			DesEma:  "",
+			DatNac:  time.Now(),
+			NumCpf:  0,
+			NumTel:  "",
+			CodPais: 0,
+			CodEst:  0,
+			CodCid:  0,
+			NomUsu:  "Empresa",
+			LogUsu:  "admin",
+			TipUsu:  "E",
+			DatCad:  time.Now(),
+			DatAlt:  time.Now(),
+		}
+		hash, erro := bcrypt.GenerateFromPassword([]byte("admin"), bcrypt.DefaultCost)
+		if erro != nil {
+			return erro
+		}
+		usuario.HasSen = sql.NullString{Valid: true, String: string(hash)}
+		return config.DB.Save(&usuario).Error
+	}
+	return nil
+}
+
+// retorna usuário pelo login ou e-mail
+// case-insensitive
+func GetUsuarioPeloLogin(tx *gorm.DB, login string) (*Usuario, error) {
+	var usuario Usuario
+	err := tx.
+		Where(`
+			LOWER(logusu) = LOWER(?)
+			OR LOWER(desema) = LOWER(?)
+		`, login, login).
+		First(&usuario).
+		Error
+	return &usuario, err
+}
+func (u *Usuario) SenhaValida(s string) bool {
+	if !u.HasSen.Valid || u.HasSen.String == "" {
+		return false
+	}
+	err := bcrypt.CompareHashAndPassword([]byte(u.HasSen.String), []byte(s))
+	return err == nil
 }

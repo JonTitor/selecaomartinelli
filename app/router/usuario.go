@@ -13,13 +13,6 @@ import (
 )
 
 func IndexUsuarios(c *gin.Context) {
-	usuarios, err := modelos.GetUsuarios()
-	if err != nil {
-		handleError(c, err)
-		return
-	}
-	c.Set("Usuarios", usuarios)
-
 	c.HTML(http.StatusOK, "usuario-index.html", c.Keys)
 }
 func NovoUsuarios(c *gin.Context) {
@@ -73,6 +66,7 @@ func SaveUsuario(c *gin.Context) {
 		CodCid:  form.CodCid,
 		NomUsu:  form.NomUsu,
 		LogUsu:  form.LogUsu,
+		TipUsu:  "C",
 		DatCad:  time.Now(),
 		DatAlt:  time.Now(),
 	}

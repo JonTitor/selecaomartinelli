@@ -7,6 +7,7 @@ import (
 
 	"martinelli/seletivomartinelli/app/build"
 	"martinelli/seletivomartinelli/app/config"
+	"martinelli/seletivomartinelli/app/modelos"
 	"martinelli/seletivomartinelli/app/modulos/migracoes"
 	"martinelli/seletivomartinelli/app/router"
 
@@ -72,6 +73,10 @@ func main() {
 			porta = c.Int("porta")
 		} else {
 			porta = config.Config.HTTP.PortaHTTP
+		}
+
+		if err := modelos.CriaUsuarioAdminSeNaoExiste(); err != nil {
+			log.Fatalf("Erro ao criar usuário admin: %v\n", err)
 		}
 
 		// iniciando servidor
