@@ -80,9 +80,8 @@ func NewRouter(logWriter io.Writer) *gin.Engine {
 	routerInit.GET("/", index)
 
 	usuario := routerInit.Group("/usuario")
-	usuario.GET("/", IndexUsuarios)
-	usuario.GET("/new", wrapErr(SaveUsuario))
-	usuario.POST("/save", adminIndexPost)
+	usuario.GET("/novo", NovoUsuarios)
+	usuario.POST("/save", SaveUsuario)
 
 	admin := routerInit.Group("/admin")
 	admin.GET("/", adminIndex)

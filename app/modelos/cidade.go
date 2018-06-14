@@ -1,4 +1,7 @@
 package modelos
+import (
+	"martinelli/seletivomartinelli/app/config"
+)
 
 type Cidade struct {
 	CodCid int    `gorm:"column:codcid;primary_key;auto_increment"`
@@ -10,3 +13,12 @@ type Cidade struct {
 }
 
 func (*Cidade) TableName() string { return "s030cid" }
+
+func GetCidades() (cidade []*Cidade, err error) {
+	linhas := config.DB.Order("nomcid")
+
+	err = linhas.
+		Find(&cidade).
+		Error
+	return
+}

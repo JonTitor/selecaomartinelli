@@ -1,5 +1,9 @@
 package modelos
 
+import (
+	"martinelli/seletivomartinelli/app/config"
+)
+
 type Pais struct {
 	CodPais int    `gorm:"column:codpais;primary_key;auto_increment"`
 	NomPais string `gorm:"column:nompais;type:varchar(60);"`
@@ -9,3 +13,11 @@ type Pais struct {
 }
 
 func (*Pais) TableName() string { return "s010pais" }
+func GetPaises() (pais []*Pais, err error) {
+	linhas := config.DB.Order("nompais")
+
+	err = linhas.
+		Find(&pais).
+		Error
+	return
+}
