@@ -13,6 +13,7 @@ import (
 )
 
 func IndexUsuarios(c *gin.Context) {
+
 	c.HTML(http.StatusOK, "usuario-index.html", c.Keys)
 }
 func NovoUsuarios(c *gin.Context) {

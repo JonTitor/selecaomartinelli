@@ -1,0 +1,52 @@
+{{template "header" .}}
+
+<section class="row justify-content-center">
+  <div class="col-12">
+    <h2 class="page-header">Etapas</h2>
+
+    <p>
+      <a class="btn btn btn-success" href="/etapa/novo">Nova Etapa</a>
+    </p>
+
+    <table class="table table-bordered table-striped table-condensed table-sm table-responsive">
+      <thead>
+        <tr>
+          <th>Codigo</th>
+          <th>Descrição</th>
+          <th>-</th>
+          <th>-</th>
+          <th>-</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{range $etapa := .Etapas}}
+          <tr>
+            <td>{{$etapa.CodEta}} </td>
+            <td>{{$etapa.DesEta}}</td>
+            <td class="is-center">
+                <a class="btn btn-primary btn-xs" href="/pergunta/index/{{$etapa.CodEta}}">
+                  Perguntas
+                </a>
+              </td>
+            <td class="is-center">
+              <form method="POST" action="/etapa/deletar/{{$etapa.CodEta}}"
+                data-confirm="Tem certeza que quer deletar este usuário?">
+                {{$.CSRFInput}}
+                <button class="btn btn-danger btn-xs">
+                  Deletar
+                </button>
+              </form>
+            </td>
+            <td class="is-center">
+              <a class="btn btn-primary btn-xs" href="/etapa/editar/{{$etapa.CodEta}}">
+                Editar
+              </a>
+            </td>
+          </tr>
+        {{end}}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+{{template "footer" .}}

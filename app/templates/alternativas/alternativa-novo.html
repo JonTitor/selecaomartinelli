@@ -1,0 +1,15 @@
+{{template "header" .}}
+
+<section class="row justify-content-center">
+  <div class="col-6">
+    <label>{{.erro}}</label>
+
+    <h2 class="page-header">Nova Alternativa</h2>
+
+    <form method="POST" action="/alternativa/save">
+      {{template "etapa-form.html" .}}
+    </form>
+  </div>
+</section>
+
+{{template "footer" .}}

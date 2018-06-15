@@ -83,6 +83,21 @@ func NewRouter(logWriter io.Writer) *gin.Engine {
 	usuario.GET("/novo", NovoUsuarios)
 	usuario.POST("/save", SaveUsuario)
 
+	etapa := routerInit.Group("/etapa")
+	etapa.GET("/", IndexEtapa)
+	etapa.GET("/novo", NovaEtapa)
+	etapa.POST("/save", SaveEtapa)
+
+	pergunta := routerInit.Group("/pergunta")
+	pergunta.GET("/index/:id", IndexPergunta)
+	pergunta.GET("/novo/:id", NovaPergunta)
+	pergunta.POST("/save", SavePergunta)
+
+	alternativa := routerInit.Group("/alternativa")
+	alternativa.GET("/index/:id", IndexAlternativa)
+	alternativa.GET("/novo/:id", NovaAlternativa)
+	alternativa.POST("/save", SaveAlternativa)
+
 	session := routerInit.Group("session")
 	session.POST("/login", SessionLogin)
 	session.POST("/logout", deveEstarLogado, SessionLogout)

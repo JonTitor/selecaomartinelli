@@ -1,0 +1,15 @@
+{{template "header" .}}
+
+<section class="row justify-content-center">
+  <div class="col-6">
+    <label>{{.erro}}</label>
+
+    <h2 class="page-header">Nova Pergunta</h2>
+
+    <form method="POST" action="/pergunta/save">
+      {{template "pergunta-form.html" .}}
+    </form>
+  </div>
+</section>
+
+{{template "footer" .}}

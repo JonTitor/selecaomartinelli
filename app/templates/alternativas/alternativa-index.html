@@ -1,0 +1,46 @@
+{{template "header" .}}
+
+<section class="row justify-content-center">
+  <div class="col-12">
+    <h2 class="page-header">Alternativas</h2>
+
+    <p>
+      <a class="btn btn btn-success" href="/alternativa/novo/{{.Pergunta.CodPer}}">Nova Alternativa</a>
+    </p>
+
+    <table class="table table-bordered table-striped table-condensed table-sm table-responsive">
+      <thead>
+        <tr>
+          <th>Descrição</th>
+          <th>Valor</th>
+          <th>-</th>
+          <th>-</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{range $alternativa := .Alternativas}}
+          <tr>
+            <td>{{$alternativa.DesAlt}}</td>
+            <td>{{$alternativa.VlrAlt}}</td>
+            <td class="is-center">
+              <form method="POST" action="/alternativa/deletar/{{$alternativa.CodAlt}}"
+                data-confirm="Tem certeza que quer deletar este usuário?">
+                {{$.CSRFInput}}
+                <button class="btn btn-danger btn-xs">
+                  Deletar
+                </button>
+              </form>
+            </td>
+            <td class="is-center">
+              <a class="btn btn-primary btn-xs" href="/alternativa/editar/{{$alternativa.CodAlt}}">
+                Editar
+              </a>
+            </td>
+          </tr>
+        {{end}}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+{{template "footer" .}}
