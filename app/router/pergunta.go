@@ -1,8 +1,8 @@
 package router
 
 import (
+	"fmt"
 	"net/http"
-	"strconv"
 
 	"martinelli/seletivomartinelli/app/config"
 	"martinelli/seletivomartinelli/app/modelos"
@@ -22,31 +22,28 @@ func IndexPergunta(c *gin.Context) {
 	c.HTML(http.StatusOK, "pergunta-index.html", c.Keys)
 }
 func NovaPergunta(c *gin.Context) {
-	etapas, err := modelos.GetEtapas()
+	etapa, err := modelos.GetEtapa(c.Param("id"))
 	if err != nil {
 		handleError(c, err)
 		return
 	}
-	c.Set("Etapas", etapas)
+	c.Set("Etapa", etapa)
 	c.HTML(http.StatusOK, "pergunta-novo.html", c.Keys)
 }
 
 func SavePergunta(c *gin.Context) {
 	var form struct {
 		DesPer string `form:"desper"`
+		CodEta int    `form:"codeta"`
 	}
 	if err := c.Bind(&form); err != nil {
 		return
 	}
 	tx := config.DB.Begin()
 	defer tx.Rollback()
-	codeta, err := strconv.Atoi(c.Param("id"))
-	if err != nil {
-		return
-	}
 	pergunta := &modelos.Pergunta{
 		DesPer: form.DesPer,
-		CodEta: codeta,
+		CodEta: form.CodEta,
 	}
 	if err := tx.Create(&pergunta).Error; err != nil {
 		tx.Rollback()
@@ -58,5 +55,5 @@ func SavePergunta(c *gin.Context) {
 		return
 	}
 
-	c.Redirect(http.StatusSeeOther, "/")
+	c.Redirect(http.StatusSeeOther, "/pergunta/index/"+fmt.Sprintf("%d", form.CodEta))
 }

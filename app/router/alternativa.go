@@ -1,8 +1,8 @@
 package router
 
 import (
+	"fmt"
 	"net/http"
-	"strconv"
 
 	"martinelli/seletivomartinelli/app/config"
 	"martinelli/seletivomartinelli/app/modelos"
@@ -22,6 +22,12 @@ func IndexAlternativa(c *gin.Context) {
 	c.HTML(http.StatusOK, "alternativa-index.html", c.Keys)
 }
 func NovaAlternativa(c *gin.Context) {
+	pergunta, err := modelos.GetPergunta(c.Param("id"))
+	if err != nil {
+		c.String(http.StatusInternalServerError, err.Error(), nil)
+		return
+	}
+	c.Set("Pergunta", pergunta)
 	c.HTML(http.StatusOK, "alternativa-novo.html", c.Keys)
 }
 
@@ -29,19 +35,16 @@ func SaveAlternativa(c *gin.Context) {
 	var form struct {
 		DesAlt string  `form:"desalt"`
 		VlrAlt float64 `form:"vlralt"`
+		CodPer int     `form:"codper"`
 	}
 	if err := c.Bind(&form); err != nil {
 		return
 	}
 	tx := config.DB.Begin()
 	defer tx.Rollback()
-	codper, err := strconv.Atoi(c.Param("id"))
-	if err != nil {
-		return
-	}
 	alternativa := &modelos.Alternativa{
 		DesAlt: form.DesAlt,
-		CodPer: codper,
+		CodPer: form.CodPer,
 		VlrAlt: form.VlrAlt,
 	}
 	if err := tx.Create(&alternativa).Error; err != nil {
@@ -54,5 +57,5 @@ func SaveAlternativa(c *gin.Context) {
 		return
 	}
 
-	c.Redirect(http.StatusSeeOther, "/")
+	c.Redirect(http.StatusSeeOther, "/alternativa/index/"+fmt.Sprintf("%d", form.CodPer))
 }
