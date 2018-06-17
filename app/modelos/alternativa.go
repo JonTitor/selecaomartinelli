@@ -30,3 +30,12 @@ func GetAlternativa(codalt string) (*Alternativa, error) {
 		Error
 	return alternativa, err
 }
+func GetTodasAlternativas() (alternativas []*Alternativa, err error) {
+	linhas := config.DB.Preload("Perguntas").
+		Order("codalt")
+
+	err = linhas.
+		Find(&alternativas).
+		Error
+	return
+}

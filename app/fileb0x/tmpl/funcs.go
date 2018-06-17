@@ -1,6 +1,7 @@
 package tmpl
 
 import (
+	"encoding/json"
 	"html/template"
 	"time"
 
@@ -15,6 +16,7 @@ var funcs = map[string]interface{}{
 	"diffHoras":   diffHoras,
 	"markdown":    markdown,
 	"formataCNPJ": util.FormataCNPJ,
+	"marshalJSON": marshalJSON,
 }
 
 func intTo64(val int) int64 {
@@ -29,4 +31,11 @@ func markdown(str string) template.HTML {
 	str = bluemonday.UGCPolicy().Sanitize(str)
 	str = string(blackfriday.MarkdownCommon([]byte(str)))
 	return template.HTML(str)
+}
+func marshalJSON(v interface{}) (string, error) {
+	data, err := json.Marshal(&v)
+	if err != nil {
+		return "", err
+	}
+	return string(data), nil
 }

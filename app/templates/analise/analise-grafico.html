@@ -1,0 +1,13 @@
+{{template "header" .}}
+
+<section class="row justify-content-center">
+  <div id="analise-grafico" data-etapas="{{marshalJSON .DescricaoEtapas}}"  class="col-12">
+    <h2 class="page-header">Analise do Usuario:{{.Usuario.NomUsu}}</h2>
+    <line-chart></line-chart>
+      {{range $resultado := .Resultados}}
+          <Label>{{$resultado.VlrRes}}</Label>
+      {{end}}
+  </div>
+</section>
+
+{{template "footer" .}}

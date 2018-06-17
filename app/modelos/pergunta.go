@@ -29,3 +29,8 @@ func GetPergunta(codper string) (*Pergunta, error) {
 		Error
 	return pergunta, err
 }
+
+func CountPerguntas(codeta int) (count int) {
+	config.DB.Model(&Pergunta{}).Where("codeta = ?", codeta).Count(&count)
+	return count
+}

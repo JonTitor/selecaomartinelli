@@ -36,9 +36,12 @@ func (*Usuario) TableName() string { return "s040usu" }
 
 func (u *Usuario) EhEmpresa() bool { return u.TipUsu == "E" }
 
-func GetUsuarios() (usuario []*Usuario, err error) {
-	linhas := config.DB.Preload("Paises").Preload("Estados").Preload("Cidades").Order("nomusu")
-
+func GetUsuarios(tipusu string) (usuario []*Usuario, err error) {
+	linhas := config.DB.Preload("Paises").Preload("Estados").Preload("Cidades")
+	if tipusu != "" {
+		linhas = linhas.Where("tipusu = ?", tipusu)
+	}
+	linhas = linhas.Order("nomusu")
 	err = linhas.
 		Find(&usuario).
 		Error

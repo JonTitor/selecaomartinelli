@@ -34,6 +34,7 @@ func EfetuarMicracao() error {
 			&modelos.Etapa{},
 			&modelos.Pergunta{},
 			&modelos.Alternativa{},
+			&modelos.Resultado{},
 		).Error
 
 		if err != nil {
@@ -48,6 +49,8 @@ func EfetuarMicracao() error {
 			{&modelos.Cidade{}, "codest", "s020est (codest)"},
 			{&modelos.Pergunta{}, "codeta", "s050eta (codeta)"},
 			{&modelos.Alternativa{}, "codper", "s060per (codper)"},
+			{&modelos.Resultado{}, "codusu", "s040usu (codusu)"},
+			{&modelos.Resultado{}, "codeta", "s050eta (codeta)"},
 		}
 		for _, r := range referencias {
 			err = tx.Model(r.modelo).AddForeignKey(r.coluna, r.destino, "RESTRICT", "RESTRICT").Error

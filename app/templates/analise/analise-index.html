@@ -1,0 +1,25 @@
+{{template "header" .}}
+
+<section class="row justify-content-center">
+  <div class="col-12">
+    <h2 class="page-header">Analise</h2>
+    <form method="GET" action="/analise/grafico">
+      <div class="form-group row">
+          <label class="form-control-label col-2 is-right" for="codpai">Usuario:</label>
+          <div class="col-10">
+            <select required name="codusu" class="form-control">
+              {{range $usuario := .Usuarios}}
+              <option value="{{$usuario.CodUsu}}">{{$usuario.NomUsu}}</option>
+              {{end}}
+            </select>
+          </div>
+      </div>
+      <div class="col-10">
+          {{$.CSRFInput}}
+          <input class="btn btn-primary" type="submit" value="Consultar" />
+        </div>
+    </div>
+  </form>
+</section>
+
+{{template "footer" .}}

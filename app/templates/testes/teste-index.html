@@ -1,0 +1,17 @@
+{{template "header" .}}
+
+<section class="row justify-content-center">
+  <div class="col-12">
+    <h2 class="page-header">Escolha a Etapa</h2>
+    {{range $etapa := .Etapas}}
+    <VueChartJs>
+
+    </VueChartJs>
+    <p>
+      <a class="btn btn btn-success center" href="/teste/etapa/{{$etapa.CodEta}}">{{$etapa.DesEta}}</a>
+    </p>
+    {{end}}
+  </div>
+</section>
+
+{{template "footer" .}}

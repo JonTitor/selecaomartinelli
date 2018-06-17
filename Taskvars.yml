@@ -41,6 +41,8 @@ JS_VENDOR_SRC:
   app/assets/js/vendor/dropzone.js
   app/assets/js/vendor/vue-pikaday.js
   app/assets/js/vendor/vue-markdown.js
+  app/assets/js/vendor/Chart.js
+  app/assets/js/vendor/vue-chart.js
 
 JS_SRC:
   app/assets/js/app.js
@@ -49,3 +51,5 @@ JS_SRC:
   app/assets/js/vue/admin.js
   app/assets/js/pikaday.js
   app/assets/js/mascaras.js
+  app/assets/js/vue/radar.js
+  app/assets/js/vue/analise.js

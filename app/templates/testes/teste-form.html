@@ -1,0 +1,25 @@
+<div class="card">
+    {{range $i,$pergunta := .Perguntas}}
+    <div class="card-header">
+      {{add $i 1}} - {{$pergunta.DesPer}}
+    </div>
+    <div class="card-body">
+    {{range $alternativa := $.Alternativas}}
+        {{if eq $alternativa.CodPer $pergunta.CodPer}}
+        <div class="form-check">
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" name="vlrres" value="{{$alternativa.VlrAlt}}" >
+              {{$alternativa.DesAlt}}
+            </label>
+        </div>
+        {{end}}
+    {{end}}
+    </div>
+    <input hidden name="codeta" value="{{$pergunta.CodEta}}">
+    {{end}}
+</div>
+<br>
+<div class="col-10">
+    {{$.CSRFInput}}
+    <input class="btn btn-primary" type="submit" value="Enviar" />
+  </div>

@@ -1,0 +1,12 @@
+{{template "header" .}}
+
+<section class="row justify-content-center">
+  <div class="col-md-12">
+    <h2 class="page-header">Responda as Perguntas</h2>
+    <form method="POST" action="/teste/save">
+      {{template "teste-form.html" .}}
+    </form>
+  </div>
+</section>
+
+{{template "footer" .}}
