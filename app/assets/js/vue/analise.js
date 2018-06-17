@@ -12,6 +12,7 @@
 
     data: {
       etapas: JSON.parse(el.getAttribute("data-etapas")),
+      valores: JSON.parse(el.getAttribute("data-valores")),
     },
     created: function() {
       var self = this;
@@ -24,7 +25,7 @@
               {
                 label: 'Nota',
                 backgroundColor: '#f87979',
-                data: [10, 2,10,3,5]
+                data: self.valores
               }
             ]
           }, {responsive: true, maintainAspectRatio: false})

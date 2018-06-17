@@ -40,17 +40,18 @@ func NovoUsuarios(c *gin.Context) {
 
 func SaveUsuario(c *gin.Context) {
 	var form struct {
-		DesEma string    `form:"desema"`
-		NomUsu string    `form:"nomusu"`
-		DatNas time.Time `form:"datnas"`
-		NumCpf int64     `form:"numcpf"`
-		NumTel string    `form:"numtel"`
-		CodPai int       `form:"codpai"`
-		CodEst int       `form:"codest"`
-		CodCid int       `form:"codcid"`
-		LogUsu string    `form:"logusu"`
-		HasSen string    `form:"hassen"`
-		HasCon string    `form:"hascon"`
+		DesEma string `form:"desema"`
+		NomUsu string `form:"nomusu"`
+		DatNas string `form:"datnas"`
+		NumCpf string `form:"numcpf"`
+		NumTel string `form:"numtel"`
+		CodPai int    `form:"codpai"`
+		CodEst int    `form:"codest"`
+		CodCid int    `form:"codcid"`
+		UsuEnd string `form:"usuend"`
+		LogUsu string `form:"logusu"`
+		HasSen string `form:"hassen"`
+		HasCon string `form:"hascon"`
 	}
 	if err := c.Bind(&form); err != nil {
 		return
@@ -66,6 +67,7 @@ func SaveUsuario(c *gin.Context) {
 		CodEst:  form.CodEst,
 		CodCid:  form.CodCid,
 		NomUsu:  form.NomUsu,
+		NomEnd:  form.UsuEnd,
 		LogUsu:  form.LogUsu,
 		TipUsu:  "C",
 		DatCad:  time.Now(),

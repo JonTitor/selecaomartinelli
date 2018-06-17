@@ -9,6 +9,7 @@ CSS_VENDOR_SRC:
   app/assets/css/vendor/bootstrap-grid.css
   app/assets/css/vendor/bootstrap-reboot.css
   app/assets/css/vendor/font-awesome.css
+  app/assets/css/vendor/bootstrap-select.css
   app/assets/css/vendor/tablecheck.css
   app/assets/css/vendor/cssmodal.css
   app/assets/css/vendor/pikaday.css
@@ -27,6 +28,8 @@ JS_VENDOR_SRC:
   app/assets/js/vendor/tether.js
   app/assets/js/vendor/popper.js
   app/assets/js/vendor/bootstrap.js
+  app/assets/js/vendor/bootstrap-select.js
+  app/assets/js/vendor/bootstrap-select-ptbr.js
   app/assets/js/vendor/vue.js
   app/assets/js/vendor/bootstrap-vue.js
   app/assets/js/vendor/click-confirm.js
@@ -43,6 +46,7 @@ JS_VENDOR_SRC:
   app/assets/js/vendor/vue-markdown.js
   app/assets/js/vendor/Chart.js
   app/assets/js/vendor/vue-chart.js
+
 
 JS_SRC:
   app/assets/js/app.js

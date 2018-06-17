@@ -26,28 +26,28 @@
   <div class="form-group row">
     <label class="form-control-label col-2 is-right" for="datnas">Data Nascimento:</label>
     <div class="col-6">
-      <input type="text" required value="{{.usuario.NomUsu}}" class="form-control" name="nomusu" placeholder="">
+      <input type="date" required  class="form-control" name="datnas" placeholder="">
     </div>
   </div>
 
   <div class="form-group row">
     <label class="form-control-label col-2 is-right" for="numcpf">CPF:</label>
     <div class="col-6">
-      <input type="text" required value="{{.usuario.NomUsu}}" class="form-control" name="nomusu" placeholder="">
+      <input type="text" required  class="form-control" name="numcpf" placeholder="">
     </div>
   </div>
 
   <div class="form-group row">
     <label class="form-control-label col-2 is-right" for="numtel">Telefone:</label>
     <div class="col-6">
-      <input type="tel" required value="{{.usuario.NomUsu}}" class="form-control" name="nomusu" placeholder="">
+      <input type="tel" required  class="form-control" name="numtel" placeholder="">
     </div>
   </div>
-
   <div class="form-group row">
     <label class="form-control-label col-2 is-right" for="codpai">Pais:</label>
     <div class="col-10">
-      <select required name="codpai" class="form-control">
+      <select required name="codpai" data-live-search="true" class="form-control ">
+          <option value=""></option>
         {{range $pais := .Paises}}
         <option value="{{$pais.CodPais}}">{{$pais.NomPais}}</option>
         {{end}}
@@ -58,7 +58,7 @@
   <div class="form-group row">
     <label class="form-control-label col-2 is-right" for="codcli">Estado:</label>
     <div class="col-10">
-      <select required name="codest" class="form-control">
+      <select required name="codest" class="form-control ">
         {{range $estado := .Estados}}
         <option value="{{$estado.CodEst}}">{{$estado.NomEst}}</option>
         {{end}}
@@ -69,7 +69,7 @@
   <div class="form-group row">
     <label class="form-control-label col-2 is-right" for="codcli">Cidade:</label>
     <div class="col-10">
-      <select required name="codcid" class="form-control">
+      <select required name="codcid" class="form-control ">
         {{range $cidade := .Cidades}}
         <option value="{{$cidade.CodCid}}">{{$cidade.NomCid}}</option>
         {{end}}
@@ -77,11 +77,17 @@
     </div>
   </div>
 
+  <div class="form-group row">
+    <label class="form-control-label col-2 is-right" for="usuend">Endereço:</label>
+    <div class="col-6">
+      <input type="tel" required  class="form-control" name="usuend" placeholder="">
+    </div>
+  </div>
 
 <div class="form-group row">
   <label class="form-control-label col-2 is-right" for="logusu">Usuario:</label>
   <div class="col-3">
-    <input type="text" required value="{{.usuario.LogUsu}}" class="form-control" name="logusu" placeholder="">
+    <input type="text" required  class="form-control" name="logusu" placeholder="">
   </div>
 </div>
 

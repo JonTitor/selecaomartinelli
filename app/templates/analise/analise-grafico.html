@@ -1,12 +1,48 @@
 {{template "header" .}}
 
 <section class="row justify-content-center">
-  <div id="analise-grafico" data-etapas="{{marshalJSON .DescricaoEtapas}}"  class="col-12">
-    <h2 class="page-header">Analise do Usuario:{{.Usuario.NomUsu}}</h2>
+  <div id="analise-grafico" data-etapas="{{marshalJSON .DescricaoEtapas}}" data-valores="{{marshalJSON .ValoresResultado}}"  class="col-12">
+    <h2 class="page-header">Analise do Usuario:{{.UsuarioConsulta.NomUsu}}</h2>
     <line-chart></line-chart>
-      {{range $resultado := .Resultados}}
-          <Label>{{$resultado.VlrRes}}</Label>
-      {{end}}
+    <table class="table table-bordered table-striped table-condensed table-sm table-responsive">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Pais</th>
+          <th>Estado</th>
+          <th>Cidade</th>
+          <th>Telefone</th>
+          <th>CPF</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr>
+            <td>{{.UsuarioConsulta.NomUsu}}</td>
+            <td>{{.UsuarioConsulta.Paises.NomPais}}</td>
+            <td>{{.UsuarioConsulta.Estados.NomEst}}</td>
+            <td>{{.UsuarioConsulta.Cidades.NomCid}}</td>
+            <td>{{.UsuarioConsulta.NumTel}}</td>
+            <td>{{.UsuarioConsulta.NumCpf}}</td>
+          </tr>
+      </tbody>
+    </table>
+    <form method="GET" action="/analise/grafico">
+      <div class="form-group row">
+          <label class="form-control-label col-2 is-right" for="codpai">Usuario:</label>
+          <div class="col-10">
+            <select required name="codusu" class="form-control">
+              {{range $usuario := .Usuarios}}
+              <option value="{{$usuario.CodUsu}}">{{$usuario.NomUsu}}</option>
+              {{end}}
+            </select>
+          </div>
+      </div>
+      <div class="col-10">
+          {{$.CSRFInput}}
+          <input class="btn btn-primary" type="submit" value="Consultar" />
+        </div>
+    </div>
+  </form>
   </div>
 </section>
 

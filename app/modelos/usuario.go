@@ -18,8 +18,8 @@ type Usuario struct {
 	DatAlt  time.Time      `gorm:"column:datalt;type:timestamp(0);not null"`
 	NomUsu  string         `gorm:"column:nomusu;type:varchar(255);"`
 	LogUsu  string         `gorm:"column:logusu;type:varchar(255);"`
-	DatNac  time.Time      `gorm:"column:datnac;type:date;not null"`
-	NumCpf  int64          `gorm:"column:numcpf;not null"`
+	DatNac  string         `gorm:"column:datnac;type:date;not null"`
+	NumCpf  string         `gorm:"column:numcpf;not null"`
 	NumTel  string         `gorm:"column:numtel;type:varchar(15);"`
 	CodPais int            `gorm:"column:codpais;not null;"`
 	CodCid  int            `gorm:"column:codcid;not null;"`
@@ -96,8 +96,8 @@ func CriaUsuarioAdminSeNaoExiste() error {
 	if config.DB.Where("numcpf = ?", 0).First(&usuario).RecordNotFound() {
 		usuario = Usuario{
 			DesEma:  "",
-			DatNac:  time.Now(),
-			NumCpf:  0,
+			DatNac:  "05/05/2001",
+			NumCpf:  "0",
 			NumTel:  "",
 			CodPais: 0,
 			CodEst:  0,

@@ -34,22 +34,22 @@ func GetResultadosPorUsuario(codusu int) (resultados []*Resultado, err error) {
 		Error
 	return
 }
-func GetEtapasName() ([]float64, error) {
-	var etapas []string
-	rows, err := config.DB.Select("deseta").Table("s050eta").Rows()
+func GetResultadoVlr(codusu int) ([]float64, error) {
+	var vlrres []float64
+	rows, err := config.DB.Select("vlrres").Table("s080res").Where("codusu = ?", codusu).Rows()
 	if err != nil {
 		return nil, err
 	}
 	for rows.Next() {
-		var t string
+		var t float64
 		if err = rows.Scan(&t); err != nil {
 			return nil, err
 		}
-		etapas = append(etapas, t)
+		vlrres = append(vlrres, t)
 	}
 	if err = rows.Err(); err != nil {
 		return nil, err
 	}
-	return etapas, nil
+	return vlrres, nil
 
 }

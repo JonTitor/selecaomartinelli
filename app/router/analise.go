@@ -1,7 +1,6 @@
 package router
 
 import (
-	"fmt"
 	"net/http"
 
 	"martinelli/seletivomartinelli/app/modelos"
@@ -39,11 +38,22 @@ func GraficoAnalise(c *gin.Context) {
 		handleError(c, err)
 		return
 	}
+	vlrresultado, err := modelos.GetResultadoVlr(usuario.CodUsu)
+	if err != nil {
+		handleError(c, err)
+		return
+	}
 
 	resultados, err := modelos.GetResultadosPorUsuario(usuario.CodUsu)
-	fmt.Println("apd:", desetas)
+	usuarios, err := modelos.GetUsuarios("C")
+	if err != nil {
+		handleError(c, err)
+		return
+	}
+	c.Set("Usuarios", usuarios)
 	c.Set("DescricaoEtapas", desetas)
-	c.Set("Usuario", usuario)
+	c.Set("ValoresResultado", vlrresultado)
+	c.Set("UsuarioConsulta", usuario)
 	c.Set("Resultados", resultados)
 	c.HTML(http.StatusOK, "analise-grafico.html", c.Keys)
 }
