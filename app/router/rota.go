@@ -110,6 +110,10 @@ func NewRouter(logWriter io.Writer) *gin.Engine {
 	analise.GET("/", IndexAnalise)
 	analise.GET("/grafico", GraficoAnalise)
 
+	comparativo := routerInit.Group("/comparativo", deveEstarLogado, deveSerEmpresa)
+	comparativo.GET("/", IndexComparativo)
+	comparativo.GET("/grafico", GraficoComparativo)
+
 	session := routerInit.Group("session")
 	session.POST("/login", SessionLogin)
 	session.POST("/logout", deveEstarLogado, SessionLogout)

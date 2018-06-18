@@ -1,0 +1,20 @@
+{{template "header" .}}
+
+<section class="row justify-content-center">
+  <div id="comparativo-grafico" 
+  data-etapas="{{marshalJSON .DescricaoEtapas}}" 
+  data-valores="{{marshalJSON .ValoresResultado}}" 
+  data-valorescomp="{{marshalJSON .ValoresResultadoComp}}"
+  data-usu="{{marshalJSON .UsuarioConsulta.NomUsu}}"   
+  data-usucomp="{{marshalJSON .UsuarioConsultaComp.NomUsu}}" 
+  class="col-12">
+    <h2 class="page-header">Comparativo do Usuario:{{.UsuarioConsulta.NomUsu}} e {{.UsuarioConsultaComp.NomUsu}} </h2>
+    {{if .TemResultado}}
+    <line-chart></line-chart>
+    {{else}}
+    <p>Um dos usuarios não completou nenhuma etapa.</p>
+    {{end}}
+  </div>
+</section>
+
+{{template "footer" .}}

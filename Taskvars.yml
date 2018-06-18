@@ -57,3 +57,4 @@ JS_SRC:
   app/assets/js/mascaras.js
   app/assets/js/vue/radar.js
   app/assets/js/vue/analise.js
+  app/assets/js/vue/comparativo.js
