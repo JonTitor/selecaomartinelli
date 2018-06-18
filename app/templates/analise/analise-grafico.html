@@ -3,7 +3,11 @@
 <section class="row justify-content-center">
   <div id="analise-grafico" data-etapas="{{marshalJSON .DescricaoEtapas}}" data-valores="{{marshalJSON .ValoresResultado}}"  class="col-12">
     <h2 class="page-header">Analise do Usuario:{{.UsuarioConsulta.NomUsu}}</h2>
+    {{if .TemResultado}}
     <line-chart></line-chart>
+    {{else}}
+    <p>Usuario não completou nenhuma etapa.</p>
+    {{end}}
     <table class="table table-bordered table-striped table-condensed table-sm table-responsive">
       <thead>
         <tr>
@@ -26,6 +30,22 @@
           </tr>
       </tbody>
     </table>
+    <table class="table table-bordered table-striped table-condensed table-sm table-responsive">
+        <thead>
+          <tr>
+            <th>Etapa</th>
+            <th>Nota</th>
+          </tr>
+        </thead>
+        <tbody>
+            {{range $resultado := .Resultados}}
+            <tr>
+              <td>{{$resultado.Etapas.DesEta}}</td>
+              <td>{{$resultado.VlrRes}}</td>  
+            </tr>
+            {{end}}
+        </tbody>
+      </table>
     <form method="GET" action="/analise/grafico">
       <div class="form-group row">
           <label class="form-control-label col-2 is-right" for="codpai">Usuario:</label>

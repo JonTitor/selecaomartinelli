@@ -50,6 +50,8 @@ func GraficoAnalise(c *gin.Context) {
 		handleError(c, err)
 		return
 	}
+	TemResultado := modelos.CountResultadoUsuarioTotal(usuario.CodUsu)
+	c.Set("TemResultado", TemResultado)
 	c.Set("Usuarios", usuarios)
 	c.Set("DescricaoEtapas", desetas)
 	c.Set("ValoresResultado", vlrresultado)

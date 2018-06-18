@@ -61,3 +61,11 @@ func CountResultadoUsuario(codeta int, codusu int) bool {
 	}
 	return true
 }
+func CountResultadoUsuarioTotal(codusu int) bool {
+	var count int
+	config.DB.Model(&Resultado{}).Where("codusu = ?", codusu).Count(&count)
+	if count > 0 {
+		return true
+	}
+	return false
+}

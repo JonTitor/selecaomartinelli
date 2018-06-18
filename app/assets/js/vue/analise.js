@@ -19,16 +19,31 @@
       Vue.component('line-chart', {
         extends: VueChartJs.Radar,
         mounted () {
-          this.renderChart({
+          this.renderChart(
+            {
             labels: self.etapas,
             datasets: [
               {
                 label: 'Nota',
-                backgroundColor: '#f87979',
-                data: self.valores
-              }
-            ]
-          }, {responsive: true, maintainAspectRatio: false})
+                borderColor:'#b21e1e',
+                pointBackgroundColor:'#471b1b',
+                pointbordercolor:'#b21e1e',
+                data: self.valores,
+              },
+            ],
+          },
+           {                     
+            responsive: true, 
+            maintainAspectRatio: false,
+            scale: {
+              ticks: {
+                min: 0,
+                max: 10
+              } 
+            },           
+          },      
+        
+        )
         }
       })
     },
