@@ -1,6 +1,7 @@
 package router
 
 import (
+	"fmt"
 	"net/http"
 
 	"martinelli/seletivomartinelli/app/config"
@@ -15,6 +16,7 @@ func IndexTeste(c *gin.Context) {
 		handleError(c, err)
 		return
 	}
+
 	c.Set("Etapas", etapas)
 	c.HTML(http.StatusOK, "teste-index.html", c.Keys)
 }
@@ -46,6 +48,15 @@ func SaveTeste(c *gin.Context) {
 	tx := config.DB.Begin()
 	defer tx.Rollback()
 	usuario := c.MustGet("Usuario").(*modelos.Usuario)
+
+	ExisteResultado := modelos.CountResultadoUsuario(form.CodEta, usuario.CodUsu)
+	if ExisteResultado != true {
+		etapa, _ := modelos.GetEtapaInt(form.CodEta)
+		tx.Rollback()
+		addFlash(c, fmt.Sprintf("A etapa %s ja foi respondida por você!Tente outra etapa", etapa.DesEta))
+		c.Redirect(http.StatusSeeOther, "/teste")
+		return
+	}
 	vlrtot := 0.0
 	for i := range form.VlrRes {
 		vlrtot = form.VlrRes[i] + vlrtot

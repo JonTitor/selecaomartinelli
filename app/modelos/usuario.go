@@ -35,6 +35,7 @@ type Usuario struct {
 func (*Usuario) TableName() string { return "s040usu" }
 
 func (u *Usuario) EhEmpresa() bool { return u.TipUsu == "E" }
+func (u *Usuario) EhComum() bool   { return u.TipUsu == "C" }
 
 func GetUsuarios(tipusu string) (usuario []*Usuario, err error) {
 	linhas := config.DB.Preload("Paises").Preload("Estados").Preload("Cidades")

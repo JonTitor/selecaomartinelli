@@ -83,27 +83,30 @@ func NewRouter(logWriter io.Writer) *gin.Engine {
 	usuario.GET("/novo", NovoUsuarios)
 	usuario.POST("/save", SaveUsuario)
 
-	etapa := routerInit.Group("/etapa")
+	etapa := routerInit.Group("/etapa", deveEstarLogado, deveSerEmpresa)
 	etapa.GET("/", IndexEtapa)
 	etapa.GET("/novo", NovaEtapa)
 	etapa.POST("/save", SaveEtapa)
+	etapa.POST("/deletar/:id", DeletarEtapa)
 
-	pergunta := routerInit.Group("/pergunta")
+	pergunta := routerInit.Group("/pergunta", deveEstarLogado, deveSerEmpresa)
 	pergunta.GET("/index/:id", IndexPergunta)
 	pergunta.GET("/novo/:id", NovaPergunta)
 	pergunta.POST("/save", SavePergunta)
+	pergunta.POST("/deletar/:id", DeletarPergunta)
 
-	alternativa := routerInit.Group("/alternativa")
+	alternativa := routerInit.Group("/alternativa", deveEstarLogado, deveSerEmpresa)
 	alternativa.GET("/index/:id", IndexAlternativa)
 	alternativa.GET("/novo/:id", NovaAlternativa)
 	alternativa.POST("/save", SaveAlternativa)
+	alternativa.POST("/deletar/:id", DeletarAlternativa)
 
-	teste := routerInit.Group("/teste")
+	teste := routerInit.Group("/teste", deveEstarLogado, deveSerComum)
 	teste.GET("/", IndexTeste)
 	teste.GET("/etapa/:id", TesteEtapa)
 	teste.POST("/save", SaveTeste)
 
-	analise := routerInit.Group("/analise")
+	analise := routerInit.Group("/analise", deveEstarLogado, deveSerEmpresa)
 	analise.GET("/", IndexAnalise)
 	analise.GET("/grafico", GraficoAnalise)
 

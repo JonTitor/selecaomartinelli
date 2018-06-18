@@ -46,3 +46,12 @@ func GetEtapa(codeta string) (*Etapa, error) {
 		Error
 	return etapa, err
 }
+
+func GetEtapaInt(codeta int) (*Etapa, error) {
+	etapa := &Etapa{}
+	err := config.DB.
+		Where("codeta = ?", codeta).
+		First(&etapa).
+		Error
+	return etapa, err
+}

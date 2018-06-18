@@ -12,6 +12,7 @@ import (
 	"martinelli/seletivomartinelli/app/build"
 	"martinelli/seletivomartinelli/app/config"
 	"martinelli/seletivomartinelli/app/fileb0x/assets"
+	"martinelli/seletivomartinelli/app/modelos"
 	"martinelli/seletivomartinelli/app/modulos/util"
 
 	"github.com/gin-gonic/gin"
@@ -77,4 +78,20 @@ func deveEstarLogado(c *gin.Context) {
 		c.Redirect(http.StatusSeeOther, urlStr)
 		c.Abort()
 	}
+}
+func deveSerEmpresa(c *gin.Context) {
+	usuario := c.MustGet("Usuario").(*modelos.Usuario)
+	if !usuario.EhEmpresa() {
+		c.Redirect(http.StatusSeeOther, "/")
+		c.Abort()
+	}
+
+}
+func deveSerComum(c *gin.Context) {
+	usuario := c.MustGet("Usuario").(*modelos.Usuario)
+	if !usuario.EhComum() {
+		c.Redirect(http.StatusSeeOther, "/")
+		c.Abort()
+	}
+
 }

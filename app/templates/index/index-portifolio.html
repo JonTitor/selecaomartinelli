@@ -3,6 +3,10 @@
   <p class="lead">Sistema seletivo.</p>
   <hr class="my-4">
   <p class="lead">
-    <a href="/analise" class="btn btn btn-success mr-sm-2">Analise</a>
+    {{if .Usuario.EhEmpresa}}
+    <a href="/analise" class="btn btn btn-success mr-sm-2 is-center">Analise</a>
+    {{else}}
+    <a href="/teste" class="btn btn btn-success mr-sm-2 is-center">Iniciar Teste</a>
+    {{end}}
   </p>
 </div>

@@ -42,6 +42,13 @@ func SaveAlternativa(c *gin.Context) {
 	}
 	tx := config.DB.Begin()
 	defer tx.Rollback()
+	TemValor := modelos.JaExisteValor(form.CodPer, form.VlrAlt)
+	if TemValor != true {
+		tx.Rollback()
+		addFlash(c, "Já existe uma alternativa com este valor para esta pergunta!")
+		c.Redirect(http.StatusSeeOther, "/alternativa/novo/"+fmt.Sprintf("%d", form.CodPer))
+		return
+	}
 	alternativa := &modelos.Alternativa{
 		DesAlt: form.DesAlt,
 		CodPer: form.CodPer,
@@ -58,4 +65,21 @@ func SaveAlternativa(c *gin.Context) {
 	}
 
 	c.Redirect(http.StatusSeeOther, "/alternativa/index/"+fmt.Sprintf("%d", form.CodPer))
+}
+func DeletarAlternativa(c *gin.Context) {
+	alternativa := modelos.Alternativa{}
+	err := config.DB.Where("codalt = ?", c.Param("id")).First(&alternativa).Error
+	if err != nil {
+		c.String(http.StatusInternalServerError, err.Error()+"1", nil)
+		return
+	}
+
+	err = config.DB.Delete(&alternativa).Error
+	if err != nil {
+		addFlash(c, "Alternativa não pode ser excluida pois já existem movimentos")
+		c.Redirect(http.StatusSeeOther, "/alternativa/index/"+fmt.Sprintf("%d", alternativa.CodPer))
+		return
+
+	}
+	c.Redirect(http.StatusSeeOther, "/alternativa/index/"+fmt.Sprintf("%d", alternativa.CodPer))
 }

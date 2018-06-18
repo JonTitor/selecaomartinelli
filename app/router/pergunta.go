@@ -57,3 +57,20 @@ func SavePergunta(c *gin.Context) {
 
 	c.Redirect(http.StatusSeeOther, "/pergunta/index/"+fmt.Sprintf("%d", form.CodEta))
 }
+func DeletarPergunta(c *gin.Context) {
+	pergunta := modelos.Pergunta{}
+	err := config.DB.Where("codper = ?", c.Param("id")).First(&pergunta).Error
+	if err != nil {
+		c.String(http.StatusInternalServerError, err.Error()+"1", nil)
+		return
+	}
+
+	err = config.DB.Delete(&pergunta).Error
+	if err != nil {
+		addFlash(c, "Pergunta não pode ser excluida pois já existem movimentos")
+		c.Redirect(http.StatusSeeOther, "/pergunta/index/"+fmt.Sprintf("%d", pergunta.CodEta))
+		return
+
+	}
+	c.Redirect(http.StatusSeeOther, "/pergunta/index/"+fmt.Sprintf("%d", pergunta.CodEta))
+}

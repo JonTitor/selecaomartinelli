@@ -53,3 +53,11 @@ func GetResultadoVlr(codusu int) ([]float64, error) {
 	return vlrres, nil
 
 }
+func CountResultadoUsuario(codeta int, codusu int) bool {
+	var count int
+	config.DB.Model(&Resultado{}).Where("codeta = ?", codeta).Where("codusu = ?", codusu).Count(&count)
+	if count > 0 {
+		return false
+	}
+	return true
+}

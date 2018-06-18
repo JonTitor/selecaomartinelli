@@ -11,9 +11,7 @@
     <table class="table table-bordered table-striped table-condensed table-sm table-responsive">
       <thead>
         <tr>
-          <th>Codigo</th>
           <th>Descrição</th>
-          <th>-</th>
           <th>-</th>
           <th>-</th>
         </tr>
@@ -21,7 +19,6 @@
       <tbody>
         {{range $etapa := .Etapas}}
           <tr>
-            <td>{{$etapa.CodEta}} </td>
             <td>{{$etapa.DesEta}}</td>
             <td class="is-center">
                 <a class="btn btn-primary btn-xs" href="/pergunta/index/{{$etapa.CodEta}}">
@@ -30,17 +27,12 @@
               </td>
             <td class="is-center">
               <form method="POST" action="/etapa/deletar/{{$etapa.CodEta}}"
-                data-confirm="Tem certeza que quer deletar este usuário?">
+                data-confirm="Tem certeza que quer deletar esta etapa?">
                 {{$.CSRFInput}}
                 <button class="btn btn-danger btn-xs">
                   Deletar
                 </button>
               </form>
-            </td>
-            <td class="is-center">
-              <a class="btn btn-primary btn-xs" href="/etapa/editar/{{$etapa.CodEta}}">
-                Editar
-              </a>
             </td>
           </tr>
         {{end}}

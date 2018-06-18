@@ -4,15 +4,15 @@
   <div class="col-12">
     <h2 class="page-header">Perguntas: {{.Etapa.DesEta}}</h2>
 
-    <p>
+    <p >
       <a class="btn btn btn-success" href="/pergunta/novo/{{.Etapa.CodEta}}">Nova Pergunta</a>
+      <a class="col-md-offset-6 btn btn btn-light" href="/etapa">Voltar</a>
     </p>
 
     <table class="table table-bordered table-striped table-condensed table-sm table-responsive">
       <thead>
         <tr>
           <th>Pergunta</th>
-          <th>-</th>
           <th>-</th>
           <th>-</th>
         </tr>
@@ -22,7 +22,7 @@
           <tr>
             <td>{{$pergunta.DesPer}}</td>
             <td class="is-center">
-                <a class="btn btn-primary btn-xs" href="/alternativa/index/{{$pergunta.CodPer}}">
+                <a class="btn btn-success btn-xs" href="/alternativa/index/{{$pergunta.CodPer}}">
                   Alternativas
                 </a>
               </td>
@@ -34,11 +34,6 @@
                   Deletar
                 </button>
               </form>
-            </td>
-            <td class="is-center">
-              <a class="btn btn-primary btn-xs" href="/pergunta/editar/{{$pergunta.CodPer}}">
-                Editar
-              </a>
             </td>
           </tr>
         {{end}}

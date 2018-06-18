@@ -39,3 +39,12 @@ func GetTodasAlternativas() (alternativas []*Alternativa, err error) {
 		Error
 	return
 }
+
+func JaExisteValor(codper int, vlralt float64) bool {
+	var count int
+	config.DB.Model(&Alternativa{}).Where("codper = ?", codper).Where("vlralt = ?", vlralt).Count(&count)
+	if count > 0 {
+		return false
+	}
+	return true
+}

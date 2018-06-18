@@ -46,3 +46,20 @@ func SaveEtapa(c *gin.Context) {
 
 	c.Redirect(http.StatusSeeOther, "/etapa")
 }
+func DeletarEtapa(c *gin.Context) {
+	etapa := modelos.Etapa{}
+	err := config.DB.Where("codeta = ?", c.Param("id")).First(&etapa).Error
+	if err != nil {
+		c.String(http.StatusInternalServerError, err.Error()+"1", nil)
+		return
+	}
+
+	err = config.DB.Delete(&etapa).Error
+	if err != nil {
+		addFlash(c, "Etapa não pode ser excluida pois já existem movimentos")
+		c.Redirect(http.StatusSeeOther, "/etapa")
+		return
+
+	}
+	c.Redirect(http.StatusSeeOther, "/etapa")
+}

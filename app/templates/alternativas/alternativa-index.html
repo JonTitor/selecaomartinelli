@@ -6,6 +6,7 @@
 
     <p>
       <a class="btn btn btn-success" href="/alternativa/novo/{{.Pergunta.CodPer}}">Nova Alternativa</a>
+      <a class="col-md-offset-6 btn btn btn-light" href="/pergunta/index/{{.Pergunta.CodEta}}">Voltar</a>
     </p>
 
     <table class="table table-bordered table-striped table-condensed table-sm table-responsive">
@@ -13,7 +14,6 @@
         <tr>
           <th>Descrição</th>
           <th>Valor</th>
-          <th>-</th>
           <th>-</th>
         </tr>
       </thead>
@@ -30,11 +30,6 @@
                   Deletar
                 </button>
               </form>
-            </td>
-            <td class="is-center">
-              <a class="btn btn-primary btn-xs" href="/alternativa/editar/{{$alternativa.CodAlt}}">
-                Editar
-              </a>
             </td>
           </tr>
         {{end}}
