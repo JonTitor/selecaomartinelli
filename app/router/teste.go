@@ -45,6 +45,7 @@ func SaveTeste(c *gin.Context) {
 	if err := c.Bind(&form); err != nil {
 		return
 	}
+
 	tx := config.DB.Begin()
 	defer tx.Rollback()
 	usuario := c.MustGet("Usuario").(*modelos.Usuario)
@@ -62,6 +63,18 @@ func SaveTeste(c *gin.Context) {
 		vlrtot = form.VlrRes[i] + vlrtot
 	}
 	countP := modelos.CountPerguntas(form.CodEta)
+	if len(form.VlrRes) > countP {
+		tx.Rollback()
+		addFlash(c, fmt.Sprintf("Selecione apenas uma opção por alternativa"))
+		c.Redirect(http.StatusSeeOther, fmt.Sprintf("/teste/etapa/%d", form.CodEta))
+		return
+	}
+	if len(form.VlrRes) < countP {
+		tx.Rollback()
+		addFlash(c, fmt.Sprintf("Não deixe alternativas em branco"))
+		c.Redirect(http.StatusSeeOther, fmt.Sprintf("/teste/etapa/%d", form.CodEta))
+		return
+	}
 	vlrres := vlrtot / float64(countP)
 	resultado := &modelos.Resultado{
 		CodUsu: usuario.CodUsu,
